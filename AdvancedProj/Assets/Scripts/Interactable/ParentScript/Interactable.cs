@@ -58,8 +58,11 @@ public class Interactable : MonoBehaviour
     /// </summary>
     internal void ShowText()
     {
-        Debug.Log("You can interact this with 'E' Key.");
-        display_text.SetActive(true);
+        if (!actived) 
+        { 
+            Debug.Log("You can interact this with 'E' Key.");
+            display_text.SetActive(true);
+        }
     }
 
     /// <summary>

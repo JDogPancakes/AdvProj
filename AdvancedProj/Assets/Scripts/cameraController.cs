@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class cameraController : MonoBehaviour
 {
-    [SerializeField] float cameraSpeed = 10f;
+    [SerializeField] float cameraSpeed = 0.1f;
 
     private float rotation;
     // Update is called once per frame
@@ -27,6 +27,6 @@ public class cameraController : MonoBehaviour
 
     private void Rotate()
     {
-        transform.Rotate(new Vector3(0, 0, rotation));
+        transform.Rotate(new Vector3(0, 0, rotation) * cameraSpeed * Time.deltaTime);
     }
 }

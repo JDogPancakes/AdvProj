@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_Develop_Info : MonoBehaviour
+public class UI_Develop_ValueBarInfo : MonoBehaviour
 {
     [Header("Health Info")]
     [SerializeField]

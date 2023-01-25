@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float movementSpeed = 10000f;
 
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Awake()

@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float movementSpeed = 10000f;
+    public float movementSpeed = 6f;
+    public InventoryObject inventory;
 
     private Rigidbody2D rb;
 
@@ -29,5 +30,22 @@ public class PlayerController : MonoBehaviour
     void Move(Vector2 targetVelocity)
     {
         rb.position += ((targetVelocity * movementSpeed) * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Attempting to pick up item");
+        Item item = other.GetComponent<Item>();
+        if (item)
+        {
+            if(inventory.addItem(item.item))
+                Destroy(other.gameObject);
+
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventory.Clear();
     }
 }

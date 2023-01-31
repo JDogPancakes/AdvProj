@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    public Transform firePoint;
+    public GameObject bulletPrefab;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -19,12 +22,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Movement
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
         Vector2 targetVelocity = new Vector2(x, y);
 
         Move(targetVelocity);
+
+        // Shooting
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Shoot();
+        }
+
     }
 
     void Move(Vector2 targetVelocity)
@@ -32,6 +43,7 @@ public class PlayerController : MonoBehaviour
         rb.position += ((targetVelocity * movementSpeed) * Time.deltaTime);
     }
 
+<<<<<<< Updated upstream
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Attempting to pick up item");
@@ -47,5 +59,11 @@ public class PlayerController : MonoBehaviour
     private void OnApplicationQuit()
     {
         inventory.Clear();
+=======
+    // Shoot Method
+    void Shoot()
+    {
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+>>>>>>> Stashed changes
     }
 }

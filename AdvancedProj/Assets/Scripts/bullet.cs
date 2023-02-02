@@ -12,13 +12,12 @@ public class bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = transform.right * force;
+        rb.velocity = transform.forward * force;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Vector3 mousePos = Input.mousePosition;
 
     }
 }

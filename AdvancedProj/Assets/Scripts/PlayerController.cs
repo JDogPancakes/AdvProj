@@ -13,6 +13,11 @@ public class PlayerController : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
 
+    private Quaternion qt;
+
+    Vector2 mousePos;
+    public Camera cam;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -30,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
         Move(targetVelocity);
 
+        
+
         // Shooting
         if (Input.GetButtonDown("Fire1"))
         {
@@ -43,14 +50,14 @@ public class PlayerController : MonoBehaviour
         rb.position += ((targetVelocity * movementSpeed) * Time.deltaTime);
     }
 
-<<<<<<< Updated upstream
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Attempting to pick up item");
         Item item = other.GetComponent<Item>();
         if (item)
         {
-            if(inventory.addItem(item.item))
+            if (inventory.addItem(item.item))
                 Destroy(other.gameObject);
 
         }
@@ -59,11 +66,17 @@ public class PlayerController : MonoBehaviour
     private void OnApplicationQuit()
     {
         inventory.Clear();
-=======
+    }
+
     // Shoot Method
     void Shoot()
     {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
->>>>>>> Stashed changes
-    }
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 lookDir = mousePos - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+
+        qt.eulerAngles = new Vector3(0, 0, angle);
+
+        Instantiate(bulletPrefab, firePoint.position, qt);
+}
 }

@@ -43,14 +43,14 @@ public class PlayerController : MonoBehaviour
         rb.position += ((targetVelocity * movementSpeed) * Time.deltaTime);
     }
 
-<<<<<<< Updated upstream
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Attempting to pick up item");
         Item item = other.GetComponent<Item>();
         if (item)
         {
-            if(inventory.addItem(item.item))
+            if (inventory.addItem(item.item))
                 Destroy(other.gameObject);
 
         }
@@ -59,11 +59,12 @@ public class PlayerController : MonoBehaviour
     private void OnApplicationQuit()
     {
         inventory.Clear();
-=======
+    }
+
     // Shoot Method
     void Shoot()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
->>>>>>> Stashed changes
+
     }
 }

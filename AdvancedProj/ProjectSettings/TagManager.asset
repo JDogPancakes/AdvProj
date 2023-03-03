@@ -8,6 +8,7 @@ TagManager:
   - ManaBarObjects
   - HealthBarObjects
   - InteractableSystem
+  - InventoryCanvas
   layers:
   - Default
   - TransparentFX

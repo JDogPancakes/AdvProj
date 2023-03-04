@@ -11,13 +11,17 @@ public class DungeonGenerator : MonoBehaviour
     public Transform roomPoint;
 
     private int randIndex;
-    private int[] validRooms;
+    private GameObject[] createdRooms;
+
+    private int showRoomId = 0;
 
 
 
     void Awake()
     {
+        createdRooms = new GameObject[dungeon.numRooms];
         GenerateDungeon();
+        
     }
 
     private void GenerateDungeon()
@@ -29,16 +33,30 @@ public class DungeonGenerator : MonoBehaviour
 
             randIndex = Random.Range(0, dungeon.tiles.Length);
 
-            Instantiate(dungeon.tiles[randIndex], new Vector3(roomPoint.position.x, roomPoint.position.y,roomPoint.position.z), Quaternion.identity);
+            createdRooms[x] = Instantiate(dungeon.tiles[randIndex], new Vector3(roomPoint.position.x, roomPoint.position.y,roomPoint.position.z), Quaternion.identity);
 
-            
+           
         }
 
         GenerateBossRoom();
+        HideRooms(createdRooms);
     }
 
     private void GenerateBossRoom()
     {
 
+    }
+
+    private void HideRooms(GameObject[] rooms)
+    {
+        foreach(GameObject room in rooms)
+        {
+            room.SetActive(false);
+        }
+    }
+
+    private void ShowNextRoom()
+    {
+        
     }
 }

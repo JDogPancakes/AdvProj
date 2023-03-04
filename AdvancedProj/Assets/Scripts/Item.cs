@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public ItemObject item;
+    public ItemObject itemPrefab;
     
     void Awake()
     {
-        GetComponentInChildren<SpriteRenderer>().sprite = item.sprite;
+        GetComponentInChildren<SpriteRenderer>().sprite = itemPrefab.sprite;
     }
 }

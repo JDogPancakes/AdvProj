@@ -49,6 +49,11 @@ public class PlayerController : MonoBehaviour
             Shoot();
         }
 
+        if (Input.GetKeyDown(KeyCode.R) && inventory.weapon)
+        {
+            StartCoroutine(inventory.weapon.Reload());
+        }
+
         //Open/close Inventory
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -75,7 +80,7 @@ public class PlayerController : MonoBehaviour
         Item item = other.GetComponent<Item>();
         if (item)
         {
-            if (inventory.addItem(item.item))
+            if (inventory.addItem(item.itemPrefab))
                 Destroy(other.gameObject);
 
         }
@@ -83,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        inventory.Clear();
+        if (inventory) inventory.Clear();
     }
 
     // Shoot Method
@@ -92,9 +97,14 @@ public class PlayerController : MonoBehaviour
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        if (inventory.weapon)
+        {
+            StartCoroutine(inventory.weapon.Attack(firePoint, angle));
 
-        qt.eulerAngles = new Vector3(0, 0, angle);
-
-        Instantiate(bulletPrefab, firePoint.position, qt);
-}
+            if (inventory.weapon.ammo == 0)
+            {
+                StartCoroutine(inventory.weapon.Reload());
+            }
+        }
+    }
 }

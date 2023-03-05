@@ -8,14 +8,18 @@ public class Door : MonoBehaviour
 
     private Animator animator;
 
+    private bool doorisLocked = true;
+
     private void Awake()
     {
         animator= GetComponent<Animator>(); 
+
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(lockedDoor.activeSelf == false)
+        if(doorisLocked == false)
         {
             animator.SetBool("openDoor", true);
         }
@@ -32,6 +36,13 @@ public class Door : MonoBehaviour
     private void UnlockDoor()
     {
         lockedDoor.SetActive(false);
+        doorisLocked= false;    
+    }
+
+    public void LockDoor()
+    {
+        doorisLocked = true;
+        lockedDoor.SetActive(true);
     }
 
     private void Update()

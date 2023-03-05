@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class WeaponObject : ItemObject
 {
     [SerializeField]
-    public int ammo;
+    public int ammo ;
     public int maxAmmo;
     public float reloadSeconds;
     public float attackDelay;

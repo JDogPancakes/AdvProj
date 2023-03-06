@@ -16,12 +16,7 @@ public class DungeonGenerator : MonoBehaviour
     private int numRooms = 0;
 
 
-
-    void Awake()
-    {
-    }
-
-    private void GenerateRoom()
+    public void GenerateRoom()
     {
         if (currentRoom != null)
         {
@@ -33,7 +28,7 @@ public class DungeonGenerator : MonoBehaviour
 
             randIndex = Random.Range(0, dungeon.tiles.Length);
             currentRoom = Instantiate(dungeon.tiles[randIndex], new Vector3(roomPoint.position.x, roomPoint.position.y, roomPoint.position.z), Quaternion.identity);
-
+            numRooms++;
         }
         else
         {

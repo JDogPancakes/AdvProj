@@ -6,6 +6,7 @@ public class Teleporter : MonoBehaviour
 {
     public GameObject entranceDoor;
     public GameObject lockedDoor;
+    public GameObject dGen;
 
     private void Awake()
     {
@@ -18,7 +19,8 @@ public class Teleporter : MonoBehaviour
         {
             collision.gameObject.transform.position = entranceDoor.transform.position + new Vector3(0, 1) ;
             lockedDoor.GetComponent<Door>().LockDoor();
-            lockedDoor.GetComponent<Animator>().SetBool("opnDoor", false);
+            lockedDoor.GetComponent<Animator>().SetBool("openDoor", false);
+            dGen.GetComponent<DungeonGenerator>().GenerateRoom();
         }
     }
 }

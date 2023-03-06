@@ -69,13 +69,12 @@ public class UI_ValueBar : MonoBehaviour
         currentValue -= decreaseValue;
     }
     private void UpdateMaxValue_UI_Set(float givenMaxValue) {
-        Debug.Log("Try to assignthe maximum value of the Value Slider");
         valueSlider.maxValue = givenMaxValue;
     }
 
     private void UpdateCurrentValue_UI_Set(float givenCurrentValue) {
         if (givenCurrentValue > maxValue) {
-            Debug.Log("Change Current Value Refuse: Value value overflow, set to defualt maximum.");
+            Debug.Log("Change Current Value Refuse: Value overflow, set to default maximum.");
             givenCurrentValue = maxValue;
         }
 

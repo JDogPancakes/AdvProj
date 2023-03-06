@@ -20,7 +20,7 @@ public class DisplayInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inventory.weapon)
+        if (inventory.weapon && inventory.weapon.GetType() == typeof(WeaponObject))
         {
             weapon.GetComponentInChildren<TextMeshProUGUI>().text = inventory.weapon.name;
             weapon.GetComponent<UnityEngine.UI.Image>().sprite = inventory.weapon.sprite;
@@ -32,7 +32,7 @@ public class DisplayInventory : MonoBehaviour
             weapon.GetComponent<UnityEngine.UI.Image>().sprite = null;
             weapon.GetComponent<UnityEngine.UI.Image>().color = new Color(77f / 255f, 77f / 255f, 77f / 255f);
         }
-        if (inventory.armour)
+        if (inventory.armour && inventory.armour.GetType() == typeof(ArmourObject))
         {
             armour.GetComponentInChildren<TextMeshProUGUI>().text = inventory.armour.name;
             armour.GetComponent<UnityEngine.UI.Image>().sprite = inventory.armour.sprite;
@@ -45,7 +45,7 @@ public class DisplayInventory : MonoBehaviour
             armour.GetComponent<UnityEngine.UI.Image>().color = new Color(77f / 255f, 77f / 255f, 77f / 255f);
         }
 
-        if (inventory.trinket)
+        if (inventory.trinket && inventory.trinket.GetType() == typeof(TrinketObject))
         {
             trinket.GetComponentInChildren<TextMeshProUGUI>().text = inventory.trinket.name;
             trinket.GetComponent<UnityEngine.UI.Image>().sprite = inventory.trinket.sprite;
@@ -58,7 +58,7 @@ public class DisplayInventory : MonoBehaviour
             trinket.GetComponent<UnityEngine.UI.Image>().color = new Color(77f / 255f, 77f / 255f, 77f / 255f);
         }
 
-        if (inventory.chip)
+        if (inventory.chip && inventory.chip.GetType() == typeof(ChipObject))
         {
             chip.GetComponentInChildren<TextMeshProUGUI>().text = inventory.chip.name;
             chip.GetComponent<UnityEngine.UI.Image>().sprite = inventory.chip.sprite;
@@ -73,7 +73,7 @@ public class DisplayInventory : MonoBehaviour
 
         if (inventory.consumable)
         {
-            consumable.GetComponentInChildren<TextMeshProUGUI>().text = inventory.consumable.name;
+            consumable.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}: {1}/{2}", inventory.consumable.name, inventory.consumable.quantity, inventory.consumable.maxQuantity);
             consumable.GetComponent<UnityEngine.UI.Image>().sprite = inventory.consumable.sprite;
             consumable.GetComponent<UnityEngine.UI.Image>().color = new Color(255f, 255f, 255f);
         }

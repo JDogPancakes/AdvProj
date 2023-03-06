@@ -14,7 +14,7 @@ public class ToyGunObject : WeaponObject
         attackDelay = 0.5f;
         canAttack = true;
     }
-
+    
     override public IEnumerator Attack(Transform firepoint, float angle)
     {
         //if there's ammo & the last attack was long enough ago

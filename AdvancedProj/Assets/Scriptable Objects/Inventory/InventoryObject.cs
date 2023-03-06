@@ -5,15 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Inventory", menuName = "ScriptableObjects/Inventory/Inventory")]
 public class InventoryObject : ScriptableObject
 {
-    [SerializeField]
     public WeaponObject weapon;
-    [SerializeField]
     public ArmourObject armour;
-    [SerializeField]
     public TrinketObject trinket;
-    [SerializeField]
     public ChipObject chip;
-    [SerializeField]
     public ConsumableObject consumable;
 
     /**add item to inventory
@@ -28,7 +23,8 @@ public class InventoryObject : ScriptableObject
             Debug.Log("Picking up weapon");
             if (!weapon)
             {
-                weapon = Instantiate((WeaponObject)itemPrefab);
+                weapon = (WeaponObject)itemPrefab;
+                //weapon.name = itemPrefab.name;
                 return true;
             }
             return false;
@@ -39,6 +35,7 @@ public class InventoryObject : ScriptableObject
             if (!armour)
             {
                 armour = Instantiate((ArmourObject)itemPrefab);
+                armour.name = itemPrefab.name;
                 return true;
             }
             return false;
@@ -49,6 +46,7 @@ public class InventoryObject : ScriptableObject
             if (!trinket)
             {
                 trinket = Instantiate((TrinketObject)itemPrefab);
+                trinket.name = itemPrefab.name;
                 return true;
             }
             return false;
@@ -59,18 +57,26 @@ public class InventoryObject : ScriptableObject
             if (!chip)
             {
                 chip = Instantiate((ChipObject)itemPrefab);
+                chip.name = itemPrefab.name;
                 return true;
             }
             return false;
         }
         else if (itemPrefab is ConsumableObject)
         {
+            Debug.Log(itemPrefab.GetType());
             Debug.Log("Picking up consumable");
             if (!consumable)
             {
-                consumable = Instantiate((ConsumableObject)itemPrefab);
-                return true;
+                consumable = (ConsumableObject)itemPrefab;
+                //consumable.name = itemPrefab.name;
             }
+
+            if (consumable.name.Equals(itemPrefab.name))
+            {
+                return consumable.add();
+            }
+
             return false;
         }
         else

@@ -9,9 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac6c88196ce0da445a8769c619c22d56, type: 3}
+  m_Script: {fileID: 11500000, guid: f23a394f52b81bb4fb2ab87263e9effd, type: 3}
   m_Name: Toy Gun
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 6a4d657050ad5e040954d326f4301e50, type: 3}
   type: 0
   description: 
+  ammo: 10
+  maxAmmo: 10
+  reloadSeconds: 2
+  attackDelay: 0.5
+  canAttack: 1
+  bulletPrefab: {fileID: 6413126482180201937, guid: fbf32a2c2f15b074dbf4944b6679ad55, type: 3}

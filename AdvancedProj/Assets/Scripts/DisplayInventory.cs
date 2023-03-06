@@ -20,9 +20,9 @@ public class DisplayInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inventory.weapon && inventory.weapon.GetType() == typeof(WeaponObject))
+        if (inventory.weapon)
         {
-            weapon.GetComponentInChildren<TextMeshProUGUI>().text = inventory.weapon.name;
+            weapon.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}: {1}/{2}", inventory.weapon.name, inventory.weapon.ammo, inventory.weapon.maxAmmo);
             weapon.GetComponent<UnityEngine.UI.Image>().sprite = inventory.weapon.sprite;
             weapon.GetComponent<UnityEngine.UI.Image>().color = new Color(255f, 255f, 255f);
         }
@@ -45,7 +45,7 @@ public class DisplayInventory : MonoBehaviour
             armour.GetComponent<UnityEngine.UI.Image>().color = new Color(77f / 255f, 77f / 255f, 77f / 255f);
         }
 
-        if (inventory.trinket && inventory.trinket.GetType() == typeof(TrinketObject))
+        if (inventory.trinket)
         {
             trinket.GetComponentInChildren<TextMeshProUGUI>().text = inventory.trinket.name;
             trinket.GetComponent<UnityEngine.UI.Image>().sprite = inventory.trinket.sprite;
@@ -58,7 +58,7 @@ public class DisplayInventory : MonoBehaviour
             trinket.GetComponent<UnityEngine.UI.Image>().color = new Color(77f / 255f, 77f / 255f, 77f / 255f);
         }
 
-        if (inventory.chip && inventory.chip.GetType() == typeof(ChipObject))
+        if (inventory.chip)
         {
             chip.GetComponentInChildren<TextMeshProUGUI>().text = inventory.chip.name;
             chip.GetComponent<UnityEngine.UI.Image>().sprite = inventory.chip.sprite;

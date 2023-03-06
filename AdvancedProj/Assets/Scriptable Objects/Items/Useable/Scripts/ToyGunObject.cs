@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "Toy Gun", menuName = "ScriptableObjects/Weapons/Toy Gun")]
 public class ToyGunObject : WeaponObject
 {
-    bool reloading = false;
     public GameObject bulletPrefab;
     private void OnEnable()
     {
         ammo = 10;
         maxAmmo = 10;
-        reloadSeconds = 2;
+        reloadSeconds = 2f;
         attackDelay = 0.5f;
         canAttack = true;
+        reloading = false;
     }
     
     override public IEnumerator Attack(Transform firepoint, float angle)

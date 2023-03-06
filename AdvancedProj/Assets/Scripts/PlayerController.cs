@@ -106,7 +106,6 @@ public class PlayerController : MonoBehaviour
         if (inventory.weapon)
         {
             StartCoroutine(inventory.weapon.Attack(firePoint, angle));
-
             if (inventory.weapon.ammo == 0)
             {
                 StartCoroutine(inventory.weapon.Reload());

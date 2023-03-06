@@ -12,7 +12,7 @@ public class bullet : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();   
-       rb.velocity = transform.up * force;
+        rb.velocity = transform.up * force;
     }
 
     // Update is called once per frame
@@ -23,6 +23,7 @@ public class bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //collision.gameObject.Damage();
         Destroy(gameObject);
     }
 

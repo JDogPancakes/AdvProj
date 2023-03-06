@@ -11,6 +11,14 @@ public abstract class ConsumableObject : ItemObject
         type = ItemType.Consumable;
     }
 
-    abstract public void Consume();
+    abstract public void Consume(PlayerController target);
+    public bool add()
+    {
+        if (quantity >= maxQuantity) return false;
+        quantity++;
+        Debug.Log(quantity);
+        return true;
+
+    }
 }
 

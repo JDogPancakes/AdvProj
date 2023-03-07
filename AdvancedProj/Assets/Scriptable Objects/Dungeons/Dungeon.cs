@@ -8,6 +8,6 @@ public class Dungeon : ScriptableObject
     public string dungeonName;
     public int numRooms;
     public GameObject[] tiles;
-
+    public GameObject bossTile;
 
 }

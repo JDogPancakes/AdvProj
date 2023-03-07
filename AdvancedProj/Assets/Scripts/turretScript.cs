@@ -16,12 +16,16 @@ public class turretScript : MonoBehaviour
     public float reloadDelay = 2f;
     public float attackDelay;
 
+    private RaycastHit2D hit;
+    private LayerMask lm;
+
     // Start is called before the first frame update
     void Awake()
     {
         attackDelay = 0.1f;
         hp = 3;
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        Physics2D.queriesStartInColliders = false;
     }
 
     // Update is called once per frame
@@ -32,16 +36,30 @@ public class turretScript : MonoBehaviour
             gameObject.transform.parent.gameObject.SetActive(false);
             return;
         }
-        Vector2 targetDir = target.position - transform.position;
-        float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
-        transform.eulerAngles = new Vector3(0, 0, angle);
-        Shoot();
+        
+
+        
+        
     }
 
-    void Shoot()
+    private void FixedUpdate()
     {
-        Vector2 shootDir = target.position - transform.position;
+        Vector2 targetDir = (target.position - transform.position).normalized;
+        float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
+        hit = Physics2D.Raycast(transform.position, targetDir, 200f) ;
+        
+        if (hit.collider!= null)
+        {
+            if(hit.collider.gameObject.tag == "Player")
+               Shoot(targetDir);
+        }
+    }
+
+    void Shoot(Vector2 shootDir)
+    {
+        
         float angle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg - 90f;
+        transform.eulerAngles = new Vector3(0, 0, angle);
         StartCoroutine(Attack(firepoint, angle));
     }
 
@@ -91,6 +109,7 @@ public class turretScript : MonoBehaviour
             Debug.Log("ided");
             door = GameObject.FindGameObjectWithTag("Door");
             door.GetComponentInChildren<Door>().EnemyDied(this.gameObject.transform.parent.gameObject);
+            gameObject.transform.parent.GetComponent<BoxCollider2D>().enabled = false;
             Destroy(gameObject);
         }
     }

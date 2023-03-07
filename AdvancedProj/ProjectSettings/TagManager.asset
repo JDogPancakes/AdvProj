@@ -8,6 +8,7 @@ TagManager:
   - InventoryCanvas
   - Enemy
   - Door
+  - Hittable
   layers:
   - Default
   - TransparentFX

@@ -51,7 +51,9 @@ public class DungeonGenerator : MonoBehaviour
 
     private void GenerateBossRoom()
     {
+        Destroy(currentRoom);
 
+        nextRoom = Instantiate(dungeon.bossTile, new Vector3(roomPoint.position.x, roomPoint.position.y, roomPoint.position.z), Quaternion.identity);
     }
 
 }

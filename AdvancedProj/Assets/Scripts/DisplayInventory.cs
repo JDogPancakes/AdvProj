@@ -22,7 +22,8 @@ public class DisplayInventory : MonoBehaviour
     {
         if (inventory.weapon)
         {
-            weapon.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}: {1}/{2}", inventory.weapon.name, inventory.weapon.ammo, inventory.weapon.maxAmmo);
+            if (inventory.weapon.reloading) weapon.GetComponentInChildren<TextMeshProUGUI>().text = inventory.weapon.DisplayReloading();
+            else weapon.GetComponentInChildren<TextMeshProUGUI>().text = inventory.weapon.Display();
             weapon.GetComponent<UnityEngine.UI.Image>().sprite = inventory.weapon.sprite;
             weapon.GetComponent<UnityEngine.UI.Image>().color = new Color(255f, 255f, 255f);
         }

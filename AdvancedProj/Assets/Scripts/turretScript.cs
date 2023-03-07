@@ -10,6 +10,7 @@ public class turretScript : MonoBehaviour
     public bool canAttack = true, reloading = false;
     public Transform firepoint;
 
+    public int hp;
     public int currentAmmo = 3, maxAmmo = 3;
     public float reloadDelay = 2f;
     public float attackDelay;
@@ -18,12 +19,20 @@ public class turretScript : MonoBehaviour
     void Start()
     {
         attackDelay = 0.1f;
+        hp = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.up = target.position - transform.position;
+        if(target == null)
+        {
+            gameObject.transform.parent.gameObject.SetActive(false);
+            return;
+        }
+        Vector2 targetDir = target.position - transform.position;
+        float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
+        transform.eulerAngles = new Vector3(0, 0, angle);
         Shoot();
     }
 
@@ -69,6 +78,15 @@ public class turretScript : MonoBehaviour
             yield return new WaitForSeconds(reloadDelay);
             currentAmmo = maxAmmo;
             reloading = false;
+        }
+    }
+
+    public void Damage(int dmg)
+    {
+        hp--;
+        if(hp <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

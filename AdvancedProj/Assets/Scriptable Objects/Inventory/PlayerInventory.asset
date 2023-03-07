@@ -16,4 +16,4 @@ MonoBehaviour:
   armour: {fileID: 0}
   trinket: {fileID: 0}
   chip: {fileID: 0}
-  healthPot: {fileID: 0}
+  consumable: {fileID: 0}

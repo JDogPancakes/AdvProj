@@ -75,4 +75,9 @@ public class ShotgunObject : WeaponObject
             Debug.Log("Reload Finished");
         }
     }
+
+    public override string DisplayReloading()
+    {
+        return string.Format("{0}: Reloading {1}/{2}", name, ammo, maxAmmo);
+    }
 }

@@ -23,7 +23,7 @@ public class bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //collision.gameObject.Damage();
+        collision.gameObject.BroadcastMessage("Damage", 1);
         Destroy(gameObject);
     }
 

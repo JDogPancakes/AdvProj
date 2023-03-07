@@ -6,9 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 6f;
     public float dashStrength = 2000f;
+    [SerializeField]
     private int hp = 5, maxHp = 5;
     public InventoryObject inventory;
-    public GameObject inventoryCanvas;
+    GameObject inventoryPanel;
+    GameObject healthBar;
+    GameObject[] healthChunks = new GameObject[5];
     private Rigidbody2D rb;
     public Transform firePoint;
     public GameObject bulletPrefab;
@@ -18,6 +21,13 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rb = transform.GetComponent<Rigidbody2D>();
+        inventoryPanel = GameObject.Find("Player/PlayerUICanvas/InventoryPanel");
+        healthBar = GameObject.Find("Player/PlayerUICanvas/HPBar");
+        for (int i = 0; i < 5; i++)
+        {
+            healthChunks[i] = healthBar.transform.GetChild(i).gameObject;
+        }
+        Debug.Log(healthChunks[4].name);
     }
 
     // Update is called once per frame
@@ -47,25 +57,18 @@ public class PlayerController : MonoBehaviour
         //Open/close Inventory
         if (Input.GetKeyDown(KeyCode.I))
         {
-            inventoryCanvas.SetActive(!inventoryCanvas.activeInHierarchy);
+            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
         }
         //Consume Consumable
         if (Input.GetKeyDown(KeyCode.C))
         {
             inventory.consumable.Consume(this);
 
-            if(inventory.consumable.quantity == 0)
+            if (inventory.consumable.quantity == 0)
             {
                 inventory.consumable = null;
             }
         }
-
-        //DEV KEYBINDS
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Damage(1);
-        }
-
     }
 
     void Move(Vector2 targetVelocity)
@@ -115,16 +118,32 @@ public class PlayerController : MonoBehaviour
 
     void Damage(int damage)
     {
-        hp-= damage;
-        if(hp <= 0)
+        while (damage > 0)
         {
-            Die();
+            hp--;
+            damage--;
+            healthChunks[hp].SetActive(false);
+            if (hp <= 0)
+            {
+                Die();
+                break;
+            }
         }
+
     }
 
     public void Heal(int heal)
     {
-        hp = Mathf.Min(hp + heal, maxHp);
+        while (heal > 0)
+        {
+            if (hp >= maxHp)
+            {
+                break;
+            }
+            healthChunks[hp].SetActive(true);
+            hp++;
+            heal--;
+        }
     }
 
     public int getHP()
@@ -137,6 +156,6 @@ public class PlayerController : MonoBehaviour
     }
     void Die()
     {
-        //Not yet implemented
+        Destroy(gameObject);
     }
 }

@@ -9,8 +9,9 @@ public class ShotgunObject : WeaponObject
     public int bulletCount = 5;
     public float spreadAngle = 7.5f;
     public bool cancelReload = false;
-    private void OnEnable()
+    new public void Awake()
     {
+        base.Awake();
         ammo = 5;
         maxAmmo = 5;
         reloadSeconds = 1f;

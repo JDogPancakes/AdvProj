@@ -23,8 +23,8 @@ public class InventoryObject : ScriptableObject
             Debug.Log("Picking up weapon");
             if (!weapon)
             {
-                weapon = (WeaponObject)itemPrefab;
-                //weapon.name = itemPrefab.name;
+                weapon = Instantiate((WeaponObject)itemPrefab);
+                weapon.name = itemPrefab.name;
                 return true;
             }
             return false;
@@ -68,8 +68,8 @@ public class InventoryObject : ScriptableObject
             Debug.Log("Picking up consumable");
             if (!consumable)
             {
-                consumable = (ConsumableObject)itemPrefab;
-                //consumable.name = itemPrefab.name;
+                consumable = Instantiate((ConsumableObject)itemPrefab);
+                consumable.name = itemPrefab.name;
             }
 
             if (consumable.name.Equals(itemPrefab.name))

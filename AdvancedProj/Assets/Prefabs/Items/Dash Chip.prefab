@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2516059468784263891}
   - component: {fileID: 6470687908238839472}
   m_Layer: 0
-  m_Name: Debug Chip
+  m_Name: Dash Chip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40610ece756ebed4fa9d544285cd1e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: bff05ca742ab8564baa5f4838b263ecf, type: 2}
+  itemPrefab: {fileID: 11400000, guid: c182f9bb19b61f146b918a157feede79, type: 2}
 --- !u!58 &6470687908238839472
 CircleCollider2D:
   m_ObjectHideFlags: 0

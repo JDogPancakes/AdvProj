@@ -6,8 +6,9 @@ using UnityEngine;
 public class ToyGunObject : WeaponObject
 {
     public GameObject bulletPrefab;
-    private void OnEnable()
+    new public void Awake()
     {
+        base.Awake();
         ammo = 10;
         maxAmmo = 10;
         reloadSeconds = 2f;

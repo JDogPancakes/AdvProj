@@ -15,10 +15,13 @@ public class PlayerController : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
     public Camera cam;
+    public Sprite[] spriteArray;
+    SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Awake()
     {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rb = transform.GetComponent<Rigidbody2D>();
         inventoryPanel = GameObject.Find("Player/PlayerUICanvas/InventoryPanel");
         healthBar = GameObject.Find("Player/PlayerUICanvas/HPBar");
@@ -71,7 +74,24 @@ public class PlayerController : MonoBehaviour
 
     void Move(Vector2 targetDirection)
     {
-        //rb.position += ((targetVelocity * movementSpeed) * Time.deltaTime);
+        rb.velocity = targetDirection * movementSpeed;
+
+        if (rb.velocity.y > 0)
+        {
+            spriteRenderer.sprite = spriteArray[0];
+        }
+        else if (rb.velocity.y < 0)
+        {
+            spriteRenderer.sprite = spriteArray[1];
+        }
+        else if (rb.velocity.x > 0)
+        {
+            spriteRenderer.sprite = spriteArray[3];
+        }
+        else if (rb.velocity.x < 0)
+        {
+            spriteRenderer.sprite = spriteArray[2];
+        }
         if (inventory.armour)
         {
             rb.AddForce(targetDirection * movementSpeed * inventory.armour.moveSpeedModifier);
@@ -107,15 +127,18 @@ public class PlayerController : MonoBehaviour
     // Shoot Method
     void Shoot()
     {
-        Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 lookDir = mousePos - rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         if (inventory.weapon)
         {
-            StartCoroutine(inventory.weapon.Attack(firePoint, angle));
+            Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 lookDir = mousePos - rb.position;
+            float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
             if (inventory.weapon.ammo == 0)
             {
                 StartCoroutine(inventory.weapon.Reload());
+            }
+            else
+            {
+                StartCoroutine(inventory.weapon.Attack(firePoint, angle));
             }
         }
     }

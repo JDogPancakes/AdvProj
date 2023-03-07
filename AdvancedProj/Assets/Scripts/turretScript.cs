@@ -5,27 +5,29 @@ using UnityEngine;
 
 public class turretScript : MonoBehaviour
 {
-    public Transform target;
+    private Transform target;
     public GameObject bulletPrefab;
+    private GameObject door;
     public bool canAttack = true, reloading = false;
     public Transform firepoint;
 
     public int hp;
-    public int currentAmmo = 3, maxAmmo = 3;
+    public int currentAmmo = 2, maxAmmo = 2;
     public float reloadDelay = 2f;
     public float attackDelay;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         attackDelay = 0.1f;
         hp = 3;
+        target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(target == null)
+        if (target == null)
         {
             gameObject.transform.parent.gameObject.SetActive(false);
             return;
@@ -86,6 +88,9 @@ public class turretScript : MonoBehaviour
         hp--;
         if(hp <= 0)
         {
+            Debug.Log("ided");
+            door = GameObject.FindGameObjectWithTag("Door");
+            door.GetComponentInChildren<Door>().EnemyDied(this.gameObject.transform.parent.gameObject);
             Destroy(gameObject);
         }
     }

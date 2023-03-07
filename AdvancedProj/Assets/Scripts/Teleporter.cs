@@ -6,20 +6,20 @@ public class Teleporter : MonoBehaviour
 {
     public GameObject entranceDoor;
     public GameObject lockedDoor;
-    public GameObject dGen;
+    private GameObject dGen;
+    private GameObject player;
+
 
     private void Awake()
     {
-        
-        
+        dGen = GameObject.FindGameObjectWithTag("GameController");
+        player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = entranceDoor.transform.position + new Vector3(0, 1);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            collision.gameObject.transform.position = entranceDoor.transform.position + new Vector3(0, 1) ;
-            lockedDoor.GetComponent<Door>().LockDoor();
-            lockedDoor.GetComponent<Animator>().SetBool("openDoor", false);
             dGen.GetComponent<DungeonGenerator>().GenerateRoom();
         }
     }

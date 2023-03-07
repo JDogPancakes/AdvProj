@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class bullet : MonoBehaviour
 {
-    public float force = 20f;
+    public float force = 10f;
 
     private Rigidbody2D rb;
 
@@ -23,9 +23,12 @@ public class bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        collision.gameObject.BroadcastMessage("Damage", 1);
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.BroadcastMessage("Damage", 1);
+
+        }
         Destroy(gameObject);
+
     }
-
-
 }

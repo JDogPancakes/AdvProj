@@ -12,10 +12,16 @@ public class DungeonGenerator : MonoBehaviour
 
     private int randIndex;
     private GameObject currentRoom;
+    private GameObject nextRoom;
+
+    public GameObject startRoom;
 
     private int numRooms = 0;
 
-
+    private void Awake()
+    {
+        currentRoom = startRoom;
+    }
     public void GenerateRoom()
     {
         if (currentRoom != null)
@@ -23,29 +29,29 @@ public class DungeonGenerator : MonoBehaviour
             Destroy(currentRoom);
         }
 
-        if (numRooms <= dungeon.tiles.Length)
+        if (numRooms < dungeon.tiles.Length)
         {
 
             randIndex = Random.Range(0, dungeon.tiles.Length);
-            currentRoom = Instantiate(dungeon.tiles[randIndex], new Vector3(roomPoint.position.x, roomPoint.position.y, roomPoint.position.z), Quaternion.identity);
+            nextRoom = Instantiate(dungeon.tiles[randIndex], new Vector3(roomPoint.position.x, roomPoint.position.y, roomPoint.position.z), Quaternion.identity);
             numRooms++;
         }
         else
         {
             GenerateBossRoom();
         }
-        
-       
+
+        currentRoom = nextRoom;
+
+
+
+
     }
 
-    private void GenerateNextRoom()
-    {
-
-    }
 
     private void GenerateBossRoom()
     {
 
     }
-   
+
 }

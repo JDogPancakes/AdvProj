@@ -6,8 +6,9 @@ using UnityEngine;
 public class HealthPotObject : ConsumableObject
 {
 
-    private void OnEnable()
+    new public void Awake()
     {
+        base.Awake();
         maxQuantity = 2;
         quantity = 0;
     }

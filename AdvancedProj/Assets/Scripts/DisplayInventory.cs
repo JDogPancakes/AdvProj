@@ -33,7 +33,7 @@ public class DisplayInventory : MonoBehaviour
             weapon.GetComponent<UnityEngine.UI.Image>().sprite = null;
             weapon.GetComponent<UnityEngine.UI.Image>().color = new Color(77f / 255f, 77f / 255f, 77f / 255f);
         }
-        if (inventory.armour && inventory.armour.GetType() == typeof(ArmourObject))
+        if (inventory.armour)
         {
             armour.GetComponentInChildren<TextMeshProUGUI>().text = inventory.armour.name;
             armour.GetComponent<UnityEngine.UI.Image>().sprite = inventory.armour.sprite;

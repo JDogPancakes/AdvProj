@@ -8,4 +8,6 @@ public abstract class ChipObject : ItemObject
     {
         type = ItemType.Chip;
     }
+
+    public abstract IEnumerator Activate(GameObject player);
 }

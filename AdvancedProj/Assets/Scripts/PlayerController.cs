@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 6f;
-    public float dashStrength = 2000f;
     [SerializeField]
     private int hp = 5, maxHp = 5;
     public InventoryObject inventory;
@@ -27,7 +26,6 @@ public class PlayerController : MonoBehaviour
         {
             healthChunks[i] = healthBar.transform.GetChild(i).gameObject;
         }
-        Debug.Log(healthChunks[4].name);
     }
 
     // Update is called once per frame
@@ -37,12 +35,12 @@ public class PlayerController : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
         Vector2 targetVector = new Vector2(x, y);
-        Move(targetVector);
+        Move(targetVector.normalized);
 
         //dash
-        if (Input.GetButtonDown("Dash"))
+        if (Input.GetButtonDown("Chip"))
         {
-            Dash();
+            ActivateChip();
         }
         // Shooting
         if (Input.GetButtonDown("Fire1"))
@@ -71,16 +69,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Move(Vector2 targetVelocity)
+    void Move(Vector2 targetDirection)
     {
         //rb.position += ((targetVelocity * movementSpeed) * Time.deltaTime);
-        rb.velocity = targetVelocity * movementSpeed;
+        if (inventory.armour)
+        {
+            rb.AddForce(targetDirection * movementSpeed * inventory.armour.moveSpeedModifier);
+        }
+        else
+        {
+            rb.AddForce(targetDirection * movementSpeed);
+        }
     }
 
-
-    void Dash()
+    void ActivateChip()
     {
-        rb.AddForce(rb.velocity.normalized * dashStrength);
+        StartCoroutine(inventory.chip.Activate(gameObject));
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -120,9 +124,12 @@ public class PlayerController : MonoBehaviour
     {
         while (damage > 0)
         {
-            hp--;
+            if (!inventory.armour || Random.Range(0, 100) > inventory.armour.blockChance)
+            {
+                hp--;
+                healthChunks[hp].SetActive(false);
+            }
             damage--;
-            healthChunks[hp].SetActive(false);
             if (hp <= 0)
             {
                 Die();

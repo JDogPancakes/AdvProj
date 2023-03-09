@@ -137,7 +137,8 @@ GameObject:
   - component: {fileID: 6496617450756965431}
   - component: {fileID: 6496617450756965425}
   - component: {fileID: 6496617450756965424}
-  m_Layer: 7
+  - component: {fileID: 8026898269049691701}
+  m_Layer: 8
   m_Name: doorUnlocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,6 +258,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lockedDoor: {fileID: 6496617451369983760}
+--- !u!50 &8026898269049691701
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6496617450756965429}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1 &6496617451369983760
 GameObject:
   m_ObjectHideFlags: 0

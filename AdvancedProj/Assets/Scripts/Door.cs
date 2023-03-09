@@ -14,7 +14,7 @@ public class Door : MonoBehaviour
 
     private void Awake()
     {
-        animator= GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
         
     }
@@ -32,7 +32,8 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(doorisLocked == false)
+        Debug.Log("Ya boi");
+        if (!doorisLocked)
         {
             animator.SetBool("openDoor", true);
         }
@@ -40,7 +41,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (lockedDoor.activeSelf == false)
+        if (!doorisLocked)
         {
             animator.SetBool("openDoor", false);
         }

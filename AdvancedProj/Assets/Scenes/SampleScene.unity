@@ -136,11 +136,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3363164648086102016, guid: ce16deb212dc4ca459448fe39a509091, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3363164648086102016, guid: ce16deb212dc4ca459448fe39a509091, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3363164648086102016, guid: ce16deb212dc4ca459448fe39a509091, type: 3}
       propertyPath: m_LocalScale.z
@@ -449,7 +449,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 7
 --- !u!1 &1332749452
 GameObject:

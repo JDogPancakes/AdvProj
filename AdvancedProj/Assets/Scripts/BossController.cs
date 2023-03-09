@@ -12,11 +12,12 @@ public class BossController : MonoBehaviour
 
 
     private Transform player;
+    public BossHPSlider hpSlider;
 
     [SerializeField]
-    private float maxHP = 10;
+    public float maxHP = 10;
 
-    private float hp;
+    public float hp;
     private bool isShielded = false;
 
     private bool canAttack = true;
@@ -81,8 +82,9 @@ public class BossController : MonoBehaviour
     {
         if (!isShielded)
         {
-            Debug.Log("Hit" + hp);
-            hp--;
+            hp-= dmg;
+            hpSlider.SetHp(hp);
+
             if (hp == (maxHP/2))
             {
                 isShielded = true;

@@ -16,4 +16,8 @@ public abstract class ItemObject : ScriptableObject
     public ItemType type;
     [TextArea(10, 20)]
     public string description;
+    public virtual string Display()
+    {
+        return name;
+    }
 }

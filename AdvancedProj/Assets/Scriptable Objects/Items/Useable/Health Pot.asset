@@ -15,5 +15,5 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 4cd95c1cab4f193449e5aa71f152cdb3, type: 3}
   type: 1
   description: 
-  quantity: 0
+  quantity: 1
   maxQuantity: 2

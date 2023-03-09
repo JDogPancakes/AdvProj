@@ -21,8 +21,9 @@ public abstract class WeaponObject : ItemObject
      */
     public abstract IEnumerator Attack(Transform firepoint, float angle);
     public abstract IEnumerator Reload();
-    public virtual string Display()
+    public override string Display()
     {
+        if (reloading) return DisplayReloading();
         return string.Format("{0}: {1}/{2}", name, ammo, maxAmmo);
     }
     public virtual string DisplayReloading()

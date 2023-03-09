@@ -15,5 +15,5 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: be5895080c56d6f40937da42a10b6263, type: 3}
   type: 4
   description: 
-  dashStrength: 250
+  dashStrength: 150
   dashCooldown: 5

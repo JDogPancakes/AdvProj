@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class ConsumableObject : ItemObject
 {
-    public int quantity;
+    [HideInInspector] public int quantity;
     public int maxQuantity;
     public void Awake()
     {
@@ -16,9 +16,13 @@ public abstract class ConsumableObject : ItemObject
     {
         if (quantity >= maxQuantity) return false;
         quantity++;
-        Debug.Log(quantity);
         return true;
 
+    }
+
+    public override string Display()
+    {
+        return string.Format("{0}: {1}/{2}", name, quantity, maxQuantity);
     }
 }
 

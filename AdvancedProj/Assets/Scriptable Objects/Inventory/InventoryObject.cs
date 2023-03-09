@@ -11,6 +11,14 @@ public class InventoryObject : ScriptableObject
     public ChipObject chip;
     public ConsumableObject consumable;
 
+    public int inventoryLimit = 5;
+    public List<ItemObject> container;
+
+    private void Awake()
+    {
+        container = new List<ItemObject>();
+    }
+
     /**add item to inventory
      *return false if slot is already full
      *       true if item is added successfully
@@ -27,7 +35,6 @@ public class InventoryObject : ScriptableObject
                 weapon.name = itemPrefab.name;
                 return true;
             }
-            return false;
         }
         else if (itemPrefab is ArmourObject)
         {
@@ -38,7 +45,6 @@ public class InventoryObject : ScriptableObject
                 armour.name = itemPrefab.name;
                 return true;
             }
-            return false;
         }
         else if (itemPrefab is TrinketObject)
         {
@@ -49,7 +55,6 @@ public class InventoryObject : ScriptableObject
                 trinket.name = itemPrefab.name;
                 return true;
             }
-            return false;
         }
         else if (itemPrefab is ChipObject)
         {
@@ -60,7 +65,6 @@ public class InventoryObject : ScriptableObject
                 chip.name = itemPrefab.name;
                 return true;
             }
-            return false;
         }
         else if (itemPrefab is ConsumableObject)
         {
@@ -70,17 +74,41 @@ public class InventoryObject : ScriptableObject
             {
                 consumable = Instantiate((ConsumableObject)itemPrefab);
                 consumable.name = itemPrefab.name;
-            }
-
-            if (consumable.name.Equals(itemPrefab.name))
+            } else if (consumable.name.Equals(itemPrefab.name))
             {
                 return consumable.add();
             }
-
-            return false;
         }
-        else
+            return addToContainer(itemPrefab);
+    }
+
+    bool addToContainer(ItemObject itemPrefab)
+    {
+        if(itemPrefab is ConsumableObject)
+        {
+            Debug.Log("Adding Consumable to inventory");
+
+            if (container.Exists(item => { return item.name == itemPrefab.name; }))
+            {
+                Debug.Log("Consumable Added");
+                return ((ConsumableObject)container.Find(item =>{ return item.name == itemPrefab.name; })).add();
+            } else if(container.Count < inventoryLimit)
+            {
+                container.Add(Instantiate(itemPrefab));
+                return true;
+            }
             return false;
+        } else
+        {
+            Debug.Log("Adding Non-Consumable to inventory");
+            if(container.Count < inventoryLimit)
+            {
+                container.Add(Instantiate(itemPrefab));
+                Debug.Log("Item Added");
+                return true;
+            }
+        }
+        return false;
     }
 
     public void Clear()
@@ -90,5 +118,6 @@ public class InventoryObject : ScriptableObject
         trinket = null;
         chip = null;
         consumable = null;
+        container = null;
     }
 }

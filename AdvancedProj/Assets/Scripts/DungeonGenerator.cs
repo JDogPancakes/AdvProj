@@ -1,3 +1,4 @@
+using NavMeshPlus.Components;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,8 @@ public class DungeonGenerator : MonoBehaviour
         }
 
         currentRoom = nextRoom;
+        currentRoom.transform.SetAsFirstSibling();
+
     }
 
 

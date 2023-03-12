@@ -29,7 +29,7 @@ public class DungeonGenerator : MonoBehaviour
             Destroy(currentRoom);
         }
 
-        if (numRooms < dungeon.tiles.Length)
+        if (numRooms < dungeon.numRooms)
         {
 
             randIndex = Random.Range(0, dungeon.tiles.Length);
@@ -42,10 +42,6 @@ public class DungeonGenerator : MonoBehaviour
         }
 
         currentRoom = nextRoom;
-
-
-
-
     }
 
 

@@ -18,7 +18,7 @@ public class BossController : MonoBehaviour
     public float maxHP = 10;
 
     public float hp;
-    private bool isShielded = false;
+    private bool isShielded, hasBeenShielded = false;
 
     private bool canAttack = true;
     private bool canBigAttack = true;
@@ -40,25 +40,7 @@ public class BossController : MonoBehaviour
     }
 
 
-    private IEnumerator BasicAttack()
-    {
-        if (canAttack)
-        {
-            canAttack= false;
 
-            Vector2 targetDir = (player.position - transform.position).normalized;
-            float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
-
-            Quaternion qt = new Quaternion();
-            qt.eulerAngles = new Vector3(0, 0, angle);
-
-            GameObject currentBullet = Instantiate(bullet, transform.position, qt);
-            currentBullet.layer = 10;
-
-            yield return new WaitForSeconds(0.5f);
-            canAttack= true;
-        }
-    }
 
     private IEnumerator BigAttackSwitch()
     {
@@ -85,9 +67,9 @@ public class BossController : MonoBehaviour
             hp-= dmg;
             hpSlider.SetHp(hp);
 
-            if (hp == (maxHP/2))
+            if ( !hasBeenShielded && hp <= (maxHP/2))
             {
-                isShielded = true;
+                hasBeenShielded = isShielded = true;
                 SpawnShieldTurrets();
             }
             if (hp <= 0)
@@ -95,6 +77,29 @@ public class BossController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+    }
+    private IEnumerator BasicAttack()
+    {
+        if (canAttack)
+        {
+            canAttack = false;
+
+            Vector2 targetDir = (player.position - transform.position).normalized;
+            float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
+
+            Quaternion qt = new Quaternion();
+            qt.eulerAngles = new Vector3(0, 0, angle);
+
+            GameObject currentBullet = Instantiate(bullet, transform.position, qt);
+            currentBullet.layer = 10;
+
+            yield return new WaitForSeconds(0.5f);
+            canAttack = true;
+        }
+    }
+    private void BigAttack()
+    {
 
     }
 
@@ -105,13 +110,6 @@ public class BossController : MonoBehaviour
             child.gameObject.SetActive(true);
         }
     }
-    
-
-    private void BigAttack()
-    {
-
-    }
-
     public void ShieldTurretDied()
     {
         numShieldTurrets--;

@@ -32,7 +32,6 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Ya boi");
         if (!doorisLocked)
         {
             animator.SetBool("openDoor", true);
@@ -65,10 +64,5 @@ public class Door : MonoBehaviour
         {
             UnlockDoor();
         }
-    }
-
-    private void OnDestroy()
-    {
-        Debug.Log("i door died");
     }
 }

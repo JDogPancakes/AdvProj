@@ -56,10 +56,8 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                StartCoroutine(inventory.getWeapon().Reload());
+                StartCoroutine(inventory.getWeapon().Reload(inventory.getWeaponSlot()));
             }
-            else if (inventory.getWeapon().reloading)
-            inventory.getWeaponSlot().UpdateItem();
         }
         //Open/close Inventory
         if (Input.GetKeyDown(KeyCode.I))
@@ -137,7 +135,7 @@ public class PlayerController : MonoBehaviour
             float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
             if (inventory.getWeapon().ammo == 0)
             {
-                StartCoroutine(inventory.getWeapon().Reload());
+                StartCoroutine(inventory.getWeapon().Reload(inventory.getWeaponSlot()));
             }
             else
             {

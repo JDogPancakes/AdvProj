@@ -20,7 +20,7 @@ public abstract class WeaponObject : ItemObject
      * Attack() and Reload() should be called via StartCoroutine(Attack()/Reload()), NOT DIRECTLY
      */
     public abstract IEnumerator Attack(Transform firepoint, float angle);
-    public abstract IEnumerator Reload();
+    public abstract IEnumerator Reload(InventoryItem weaponItem);
     public override string Display()
     {
         if (reloading) return DisplayReloading();

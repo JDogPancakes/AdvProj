@@ -19,7 +19,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             //if the current slot only has text (no item)
             if (transform.childCount == 1)
             {
-                dropped.transform.parent.GetComponentInChildren<TextMeshProUGUI>().text = "Empty";
+                dropped.parentAfterDrag.GetComponentInChildren<TextMeshProUGUI>().text = "Empty";
                 dropped.parentAfterDrag.GetComponent<Image>().raycastTarget = true;
                 dropped.parentAfterDrag = transform;
             }

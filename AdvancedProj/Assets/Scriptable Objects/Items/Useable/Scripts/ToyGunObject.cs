@@ -35,14 +35,16 @@ public class ToyGunObject : WeaponObject
         }
     }
 
-    public override IEnumerator Reload()
+    public override IEnumerator Reload(InventoryItem weaponItem)
     {
         if (!reloading)
         {
             reloading = true;
             ammo = 0; //so you can't fire while reloading
+            weaponItem.UpdateItem();
             yield return new WaitForSeconds(reloadSeconds);
             ammo = maxAmmo;
+            weaponItem.UpdateItem();
             reloading = false;
         }
     }

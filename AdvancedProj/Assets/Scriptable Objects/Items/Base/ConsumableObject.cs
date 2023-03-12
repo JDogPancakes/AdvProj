@@ -20,6 +20,11 @@ public abstract class ConsumableObject : ItemObject
 
     }
 
+    public bool hasSpace()
+    {
+        return quantity < maxQuantity;
+    }
+
     public override string Display()
     {
         return string.Format("{0}: {1}/{2}", name, quantity, maxQuantity);

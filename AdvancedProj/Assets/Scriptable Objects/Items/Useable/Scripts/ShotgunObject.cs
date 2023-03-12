@@ -33,11 +33,9 @@ public class ShotgunObject : WeaponObject
             {
                 //lock out attack
                 canAttack = false;
-                Debug.Log("Firing Shotgun");
                 //fire bullets
                 for (int i = 0; i < bulletCount; i++)
                 {
-                    Debug.LogFormat("Bullet {0}", i);
                     //calculate angle & fire
                     Quaternion qt = new Quaternion();
                     qt.eulerAngles = new Vector3(0, 0, angle + Random.Range(-spreadAngle, spreadAngle));
@@ -58,7 +56,6 @@ public class ShotgunObject : WeaponObject
         {
             //Lock out firing and reloading
             reloading = true;
-            Debug.Log("Beginning Reload");
 
             //Loop to add 1 bullet at a time
             while (ammo < maxAmmo && reloading)
@@ -73,7 +70,6 @@ public class ShotgunObject : WeaponObject
 
             }
             reloading = false;
-            Debug.Log("Reload Finished");
         }
     }
 

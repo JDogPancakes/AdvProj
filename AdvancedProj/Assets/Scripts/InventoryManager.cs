@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -98,6 +99,18 @@ public class InventoryManager : MonoBehaviour
         //return false if item couldn't be equipped or stored
         return false;
     }
+
+    public void RemoveItem(int i)
+    {
+        if(i > 0 && i < inventorySlots.Length)
+        {
+            inventorySlots[i].GetComponentInChildren<InventoryItem>().currentItem = null;
+            inventorySlots[i].GetComponentInChildren<TextMeshProUGUI>().text = "Empty";
+            Destroy(inventorySlots[i].GetComponentInChildren<InventoryItem>().gameObject);
+            
+        }
+    }
+
     public WeaponObject getWeapon()
     {
         return (WeaponObject)inventorySlots[0].GetComponentInChildren<InventoryItem>().currentItem;
@@ -120,6 +133,27 @@ public class InventoryManager : MonoBehaviour
         return (ConsumableObject)inventorySlots[4].GetComponentInChildren<InventoryItem>().currentItem;
     }
 
+    public InventoryItem getWeaponSlot()
+    {
+        return inventorySlots[0].GetComponentInChildren<InventoryItem>();
+    }
+
+    public InventoryItem getArmourSlot()
+    {
+        return inventorySlots[1].GetComponentInChildren<InventoryItem>();
+    }
+    public InventoryItem getTrinketSlot()
+    {
+        return inventorySlots[2].GetComponentInChildren<InventoryItem>();
+    }
+    public InventoryItem getChipSlot()
+    {
+        return inventorySlots[3].GetComponentInChildren<InventoryItem>();
+    }
+    public InventoryItem getConsumableSlot()
+    {
+        return inventorySlots[4].GetComponentInChildren<InventoryItem>();
+    }
 
     public bool hasWeapon()
     {

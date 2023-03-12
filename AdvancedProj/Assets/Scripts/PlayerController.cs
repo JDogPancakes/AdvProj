@@ -52,9 +52,14 @@ public class PlayerController : MonoBehaviour
             Shoot();
         }
         //Reloading
-        if (Input.GetKeyDown(KeyCode.R) && inventory.hasWeapon())
+        if (inventory.hasWeapon())
         {
-            StartCoroutine(inventory.getWeapon().Reload());
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                StartCoroutine(inventory.getWeapon().Reload());
+            }
+            else if (inventory.getWeapon().reloading)
+            inventory.getWeaponSlot().UpdateItem();
         }
         //Open/close Inventory
         if (Input.GetKeyDown(KeyCode.I))
@@ -65,7 +70,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             inventory.getConsumable().Consume(this);
-
+            if (inventory.getConsumable().quantity <= 0) inventory.RemoveItem(4);
+            else inventory.getConsumableSlot().UpdateItem();
         }
     }
 
@@ -116,10 +122,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-/*    private void OnApplicationQuit()
-    {
-        if (inventory) inventory.Clear();
-    }*/
+    /*    private void OnApplicationQuit()
+        {
+            if (inventory) inventory.Clear();
+        }*/
 
     // Shoot Method
     void Shoot()
@@ -136,6 +142,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 StartCoroutine(inventory.getWeapon().Attack(firePoint, angle));
+                inventory.getWeaponSlot().UpdateItem();
             }
         }
     }

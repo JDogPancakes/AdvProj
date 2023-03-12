@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fcc9e6334e4d3c4588066b0b9d57cf0, type: 3}
+  m_Name: AustinTestDungeon
+  m_EditorClassIdentifier: 
+  dungeonName: Austin's Test Dungeon
+  numRooms: 0
+  tiles:
+  - {fileID: 4317228055761050491, guid: 7cd60c2888a79504db8ef928f3c9b1e1, type: 3}
+  - {fileID: 5201957316553408796, guid: 606182e067697934ca4880eddd35ff5b, type: 3}
+  - {fileID: 4405484636863824649, guid: 4f194d4545eeed84bb28a2b24de4c10a, type: 3}
+  bossTile: {fileID: 2113705294548388011, guid: 3dc0ffbf79839c948b5bf57eb0b68293, type: 3}

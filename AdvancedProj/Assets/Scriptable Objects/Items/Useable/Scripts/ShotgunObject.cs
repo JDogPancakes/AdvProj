@@ -50,26 +50,29 @@ public class ShotgunObject : WeaponObject
         }
     }
 
-    public override IEnumerator Reload()
+    public override IEnumerator Reload(InventoryItem weaponItem)
     {
         if (!reloading)
         {
             //Lock out firing and reloading
             reloading = true;
 
+            weaponItem.UpdateItem();
             //Loop to add 1 bullet at a time
             while (ammo < maxAmmo && reloading)
             {
                 yield return new WaitForSeconds(reloadSeconds);
                 if (reloading) ammo++;
+                //base call to update UI
+                weaponItem.UpdateItem();
                 if (cancelReload)
                 {
                     cancelReload = false;
                     break;
                 }
-
             }
             reloading = false;
+            weaponItem.UpdateItem();
         }
     }
 

@@ -15,14 +15,17 @@ public class Door : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+
         enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
-        
+
     }
 
     public void EnemyDied(GameObject enemy)
     {
+
         if (enemies.Contains(enemy)){
             enemies.Remove(enemy);
+            Debug.Log(enemies.Count);
         }
         if(enemies.Count == 0)
         {
@@ -65,4 +68,5 @@ public class Door : MonoBehaviour
             UnlockDoor();
         }
     }
+
 }

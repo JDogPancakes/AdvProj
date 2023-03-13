@@ -106,9 +106,8 @@ public class turretScript : MonoBehaviour
         hp--;
         if (hp <= 0)
         {
-            Debug.Log("ided");
             gameObject.transform.parent.GetComponent<BoxCollider2D>().enabled = false;
-            Destroy(gameObject);
+            Destroy(gameObject.transform.parent.gameObject);
             try
             {
                 door = GameObject.FindGameObjectWithTag("Door");

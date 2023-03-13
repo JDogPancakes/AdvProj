@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3054325984104859948}
   - component: {fileID: 6999533474895688573}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 8688307310900579537}
   - component: {fileID: 7412649779472841194}
   - component: {fileID: 7533098573948483431}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Toy Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

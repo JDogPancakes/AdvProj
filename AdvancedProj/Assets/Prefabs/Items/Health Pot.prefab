@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4242209558837456374}
   - component: {fileID: 341500333993936814}
   - component: {fileID: 3350419699972041701}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Health Pot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2178281945687736432}
   - component: {fileID: 4830599043962894314}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

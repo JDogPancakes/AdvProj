@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3684576759822592582}
   - component: {fileID: 7056056467908517127}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 5058473340293848526}
   - component: {fileID: 2516059468784263891}
   - component: {fileID: 6470687908238839472}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Dash Chip
   m_TagString: Untagged
   m_Icon: {fileID: 0}

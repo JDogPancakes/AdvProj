@@ -6,12 +6,14 @@ using UnityEngine;
 public class NavMeshObject : MonoBehaviour
 {
     private bool updated = false;
-    private void LateUpdate()
+    private void Start()
     {
-        if (!updated)
-        {
-            updated = true;
-            gameObject.GetComponent<NavMeshSurface>().BuildNavMeshAsync();
-        }
+        StartCoroutine(UpdateNavMesh());
+    }
+
+    private IEnumerator UpdateNavMesh()
+    {
+        yield return new WaitForEndOfFrame();
+        gameObject.GetComponent<NavMeshSurface>().BuildNavMeshAsync();
     }
 }

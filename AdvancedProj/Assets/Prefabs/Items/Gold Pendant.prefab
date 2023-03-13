@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1088225861700975147}
   - component: {fileID: 3293594376842542109}
   - component: {fileID: 4867037121607216547}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Gold Pendant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40610ece756ebed4fa9d544285cd1e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 98f51760fb8790941ba6a644cd5e5eba, type: 2}
+  itemPrefab: {fileID: 0}
 --- !u!1 &8567335949390459184
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1927803536824802819}
   - component: {fileID: 4200594932937464539}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

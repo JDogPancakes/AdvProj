@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3767623711760706004}
   - component: {fileID: 2975149652095956605}
   - component: {fileID: 4313831477274937590}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5153906932467810800}
   - component: {fileID: 7743564045396769910}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

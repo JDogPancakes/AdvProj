@@ -16,12 +16,12 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public Camera cam;
     public Sprite[] spriteArray;
-    SpriteRenderer spriteRenderer;
+    public Animator playerAnimator;
+    public SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Awake()
     {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rb = transform.GetComponent<Rigidbody2D>();
         healthBar = GameObject.Find("Player/PlayerUICanvas/HPBar");
         mainInventoryGroup = GameObject.Find("Player/PlayerUICanvas/MainInventoryGroup");
@@ -77,22 +77,31 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = targetDirection * movementSpeed;
 
-        if (rb.velocity.y > 0)
+        if (rb.velocity.x == 0 && rb.velocity.y == 0)
         {
-            spriteRenderer.sprite = spriteArray[0];
+            playerAnimator.ResetTrigger("Moving");
         }
-        else if (rb.velocity.y < 0)
+        else
         {
-            spriteRenderer.sprite = spriteArray[1];
+            playerAnimator.SetTrigger("Moving");
+            if (rb.velocity.y > 0)
+            {
+                spriteRenderer.sprite = spriteArray[0];
+            }
+            else if (rb.velocity.y < 0)
+            {
+                spriteRenderer.sprite = spriteArray[1];
+            }
+            else if (rb.velocity.x > 0)
+            {
+                spriteRenderer.sprite = spriteArray[3];
+            }
+            else if (rb.velocity.x < 0)
+            {
+                spriteRenderer.sprite = spriteArray[2];
+            }
         }
-        else if (rb.velocity.x > 0)
-        {
-            spriteRenderer.sprite = spriteArray[3];
-        }
-        else if (rb.velocity.x < 0)
-        {
-            spriteRenderer.sprite = spriteArray[2];
-        }
+
         if (inventory.hasArmour())
         {
             rb.AddForce(targetDirection * movementSpeed * inventory.getArmour().moveSpeedModifier);

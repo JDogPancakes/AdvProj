@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4427420979376028850}
   - component: {fileID: 3160207106909178748}
   - component: {fileID: 7672521763887657147}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TheHostBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

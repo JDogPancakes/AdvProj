@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NavMeshObject : MonoBehaviour
 {
+    private bool updated = false;
     private void Start()
     {
         StartCoroutine(UpdateNavMesh());

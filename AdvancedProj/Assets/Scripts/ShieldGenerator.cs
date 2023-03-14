@@ -19,8 +19,9 @@ public class ShieldGenerator : MonoBehaviour
         hp--;
         if(hp<=0)
         {
-            boss.GetComponent<BossController>().ShieldTurretDied();
             Destroy(gameObject);
+            BossController bossController= boss.GetComponent<BossController>();
+            bossController.StartCoroutine(bossController.ShieldTurretDied());
         }
     } 
 }

@@ -19,7 +19,6 @@ public class BossHPSlider : MonoBehaviour
 
     public void SetHp(float hp)
     {
-        Debug.Log("Slider change");
         slider.value = hp/boss.GetComponent<BossController>().maxHP; 
     }
 }

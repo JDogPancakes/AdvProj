@@ -8,7 +8,6 @@ public class BossController : MonoBehaviour
 {
     public GameObject bullet;
     public GameObject shieldTurrets;
-    public GameObject[] childrens;
 
 
     private Transform player;
@@ -20,16 +19,16 @@ public class BossController : MonoBehaviour
     public float hp;
     private bool isShielded, hasBeenShielded = false;
 
-    private bool canAttack = true;
+    private bool canAttack = false;
+
 
     public float attackCooldown = 1f;
-    private float numShieldTurrets;
+
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         hp = maxHP;
-        numShieldTurrets = childrens.Length + 1;
     }
 
     // Update is called once per frame
@@ -48,6 +47,7 @@ public class BossController : MonoBehaviour
             if (!hasBeenShielded && hp <= (maxHP / 2))
             {
                 hasBeenShielded = isShielded = true;
+                GetComponent<SpriteRenderer>().color = Color.blue;
                 SpawnShieldTurrets();
             }
             if (hp <= 0)
@@ -141,17 +141,23 @@ public class BossController : MonoBehaviour
 
     private void SpawnShieldTurrets()
     {
-        foreach (GameObject child in childrens)
+        for (int i = 0; i < shieldTurrets.transform.childCount; i++)
         {
-            child.gameObject.SetActive(true);
+            shieldTurrets.transform.GetChild(i).gameObject.SetActive(true);
         }
     }
-    public void ShieldTurretDied()
+    public IEnumerator ShieldTurretDied()
     {
-        numShieldTurrets--;
-        if (numShieldTurrets <= 0)
+        yield return new WaitForFixedUpdate();
+        if (shieldTurrets.transform.childCount == 0)
         {
             isShielded = false;
+            GetComponent<SpriteRenderer>().color = Color.white;
         }
+    }
+
+    public void SetCanAttack(bool bossCanAttack)
+    {
+        canAttack = bossCanAttack;
     }
 }

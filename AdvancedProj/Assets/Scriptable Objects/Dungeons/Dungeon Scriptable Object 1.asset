@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dungeon Scriptable Object 1
   m_EditorClassIdentifier: 
   dungeonName: Tutorial
-  numRooms: 0
+  numRooms: 3
   tiles:
   - {fileID: 4317228055761050491, guid: 7cd60c2888a79504db8ef928f3c9b1e1, type: 3}
   - {fileID: 5201957316553408796, guid: 606182e067697934ca4880eddd35ff5b, type: 3}

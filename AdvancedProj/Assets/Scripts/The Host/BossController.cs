@@ -8,10 +8,6 @@ public class BossController : MonoBehaviour
 {
     public GameObject bullet;
     public GameObject shieldTurrets;
-    public GameObject[] childrens;
-    public GameObject meleeEnemyPrefab;
-    public GameObject turretEnemyPrefab;
-    List<Transform> enemySpawnPoints;
 
 
     private Transform player;
@@ -33,8 +29,6 @@ public class BossController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         hp = maxHP;
-        enemySpawnPoints = new List<Transform>(GameObject.Find("EnemySpawnPoints").GetComponentsInChildren<Transform>());
-        enemySpawnPoints.RemoveAt(0);
     }
 
     // Update is called once per frame
@@ -145,45 +139,12 @@ public class BossController : MonoBehaviour
         }
     }
 
-    private void SpawnEnemies()
-    {
-        int numMelee = Random.Range(2, 5);
-        int numTurret = Mathf.Min(Random.Range(1, 3), enemySpawnPoints.Count); //ensure there's no more turrets than spawn points
-
-        //spawn melee enemies
-        for (int i = 0; i < numMelee; i++)
-        {
-            //select random spawn point and instantiate enemy object
-            int selectedSpawnPoint = Random.Range(0, enemySpawnPoints.Count);
-            Instantiate(meleeEnemyPrefab, enemySpawnPoints[selectedSpawnPoint]);
-        }
-
-        //spawn turrets
-        List<int> claimedSpots = new List<int>();
-        for (int i = 0; i < numTurret; i++)
-        {
-            //ensure multiple turrets dont take the same spot
-            int selectedSpawnPoint;
-            do
-            {
-                selectedSpawnPoint = Random.Range(0, enemySpawnPoints.Count);
-            }
-            while (claimedSpots.Contains(selectedSpawnPoint));
-            claimedSpots.Add(selectedSpawnPoint);
-
-            //instantiate turret object
-            Instantiate(turretEnemyPrefab, enemySpawnPoints[selectedSpawnPoint]);
-        }
-
-    }
-
     private void SpawnShieldTurrets()
     {
         for (int i = 0; i < shieldTurrets.transform.childCount; i++)
         {
             shieldTurrets.transform.GetChild(i).gameObject.SetActive(true);
         }
-        SpawnEnemies();
     }
     public IEnumerator ShieldTurretDied()
     {

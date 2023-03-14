@@ -9,7 +9,12 @@ public class enemy : MonoBehaviour
     private Transform target;
     public Animator animator;
     private GameObject door;
+    private Rigidbody2D rb;
     public int hp;
+    public float moveSpeed = 6f;
+    private int bitMask = ~((1 << 2) | (1 << 9));
+    private NavMeshPath path;
+    private Vector3 direction;
 
 
     private bool trackingPlayer = false;
@@ -22,21 +27,15 @@ public class enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        agent.isStopped = true;
+        rb = GetComponent<Rigidbody2D>();
+        path = new NavMeshPath();
+        direction = new Vector3();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        Vector2 targetDir = (target.position - transform.position).normalized;
-        float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDir, 200f);
-
-        if (hit.collider != null && hit.collider.tag.Equals("Player"))
-        {
-            StartCoroutine(TrackPlayer());
-        }
-
         if (Mathf.Abs(agent.velocity.y) > Mathf.Abs(agent.velocity.x))
         {
             if (agent.velocity.y > 0)
@@ -79,7 +78,8 @@ public class enemy : MonoBehaviour
                 animator.SetBool("Idle", false);
 
             }
-        } else
+        }
+        else
         {
             animator.SetBool("GoingRight", false);
             animator.SetBool("GoingLeft", false);
@@ -87,8 +87,33 @@ public class enemy : MonoBehaviour
             animator.SetBool("GoingUp", false);
             animator.SetBool("Idle", true);
         }
+    }
 
+    private void FixedUpdate()
+    {
+        Vector2 targetDir = (target.position - transform.position).normalized;
+        float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDir, 200f, bitMask);
 
+        if (hit.collider != null && hit.collider.tag.Equals("Player"))
+        {
+            StopCoroutine(TrackPlayer());
+            trackingPlayer = false;
+            StartCoroutine(TrackPlayer());
+        }
+
+        int i = 1;
+        while (i < path.corners.Length)
+        {
+            if (Vector3.Distance(transform.position, path.corners[i]) > 0.5f)
+            {
+                direction = path.corners[i] - transform.position;
+                break;
+            }
+            i++;
+        }
+
+        rb.AddForce(direction * moveSpeed);
     }
 
     private IEnumerator TrackPlayer()
@@ -96,10 +121,10 @@ public class enemy : MonoBehaviour
         if (!trackingPlayer)
         {
             trackingPlayer = true;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 20; i++)
             {
-                agent.SetDestination(target.position);
-                yield return new WaitForSeconds(0.5f);
+                agent.CalculatePath(target.position, path);
+                yield return new WaitForSeconds(0.1f);
             }
             trackingPlayer = false;
         }
@@ -128,7 +153,7 @@ public class enemy : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             collision.gameObject.BroadcastMessage("Damage", 1);
-
+            rb.AddForce(collision.contacts[0].normal * 350f);
         }
     }
 }

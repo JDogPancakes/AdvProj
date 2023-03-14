@@ -18,11 +18,14 @@ public class turretScript : MonoBehaviour
 
     private RaycastHit2D hit;
     private LayerMask lm;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Awake()
     {
-        attackDelay = 0.1f;
+
+        animator = gameObject.GetComponent<Animator>();
+        attackDelay = 0.3f;
         hp = 3;
         target = GameObject.FindGameObjectWithTag("Player").transform;
         Physics2D.queriesStartInColliders = false;
@@ -70,22 +73,23 @@ public class turretScript : MonoBehaviour
         {
             if (canAttack)
             {
+                animator.SetTrigger("Shooting");
                 canAttack = false;
                 //calculate angle & fire
-                Quaternion qt = new Quaternion();
-                qt.eulerAngles = new Vector3(0, 0, angle);
-                GameObject currentBullet = Instantiate(bulletPrefab, firepoint.position, qt);
-                currentBullet.layer = 10;
-                currentAmmo--;
-
-                //cooldown before next attack
-                yield return new WaitForSeconds(attackDelay);
+                for (currentAmmo = 3; currentAmmo > 0;currentAmmo--)
+                {
+                    Quaternion qt = new Quaternion();
+                    qt.eulerAngles = new Vector3(0, 0, angle);
+                    GameObject currentBullet = Instantiate(bulletPrefab, firepoint.position, qt);
+                    currentBullet.layer = 10;
+                    //cooldown before next attack
+                    yield return new WaitForSeconds(attackDelay);
+                }
                 canAttack = true;
             }
         }
         else
         {
-
             StartCoroutine(Reload());
         }
     }
@@ -94,8 +98,11 @@ public class turretScript : MonoBehaviour
     {
         if (!reloading)
         {
+            animator.SetTrigger("Reloading");
+            animator.ResetTrigger("Shooting");
             reloading = true;
             yield return new WaitForSeconds(reloadDelay);
+            animator.ResetTrigger("Reloading");
             currentAmmo = maxAmmo;
             reloading = false;
         }

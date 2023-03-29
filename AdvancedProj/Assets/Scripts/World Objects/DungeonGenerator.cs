@@ -10,17 +10,21 @@ public class DungeonGenerator : MonoBehaviour
     private Dungeon dungeon;
 
     public Transform roomPoint;
+    public GameObject startRoom;
 
     private int randIndex;
     private GameObject currentRoom;
     private GameObject nextRoom;
 
-    public GameObject startRoom;
+    private List<int> usedIndexs;
+
+    private bool canCreateRoom = true;
 
     private int numRooms = 0;
 
     private void Awake()
     {
+        usedIndexs = new List<int>();
         currentRoom = startRoom;
     }
     public void GenerateRoom()
@@ -33,9 +37,8 @@ public class DungeonGenerator : MonoBehaviour
         if (numRooms < dungeon.numRooms)
         {
 
-            randIndex = Random.Range(0, dungeon.tiles.Length);
-            nextRoom = Instantiate(dungeon.tiles[randIndex], new Vector3(roomPoint.position.x, roomPoint.position.y, roomPoint.position.z), Quaternion.identity);
-            numRooms++;
+            TryMakeRoom();
+            
         }
         else
         {
@@ -55,4 +58,19 @@ public class DungeonGenerator : MonoBehaviour
         nextRoom = Instantiate(dungeon.bossTile, new Vector3(roomPoint.position.x, roomPoint.position.y, roomPoint.position.z), Quaternion.identity);
     }
 
+    private void TryMakeRoom()
+    {
+        randIndex = Random.Range(0, dungeon.tiles.Length);
+        if (!usedIndexs.Contains(randIndex))
+        {
+            nextRoom = Instantiate(dungeon.tiles[randIndex], new Vector3(roomPoint.position.x, roomPoint.position.y, roomPoint.position.z), Quaternion.identity);
+            usedIndexs.Add(randIndex);
+            numRooms++;
+        }
+        else
+        {
+            TryMakeRoom();
+        }
+
+    }
 }

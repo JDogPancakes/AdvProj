@@ -9,67 +9,62 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField]
     private Dungeon dungeon;
 
-    public Transform roomPoint;
-    public GameObject startRoom;
+    [SerializeField]
+    private List<Transform> roomDoors;
+
+    [SerializeField]
+    private Transform bossDoor;
+
 
     private int randIndex;
-    private GameObject currentRoom;
-    private GameObject nextRoom;
+    private GameObject player;
 
     private List<int> usedIndexs;
-
-    private bool canCreateRoom = true;
 
     private int numRooms = 0;
 
     private void Awake()
     {
         usedIndexs = new List<int>();
-        currentRoom = startRoom;
+        player = GameObject.FindGameObjectWithTag("Player");
+        
     }
-    public void GenerateRoom()
+    public void MoveRoom()
     {
-        if (currentRoom != null)
-        {
-            Destroy(currentRoom);
-        }
+        
 
         if (numRooms < dungeon.numRooms)
         {
 
-            TryMakeRoom();
+            TryNextRoom();
             
         }
         else
         {
-            GenerateBossRoom();
+            BossRoom();
         }
 
-        currentRoom = nextRoom;
-        currentRoom.transform.SetAsFirstSibling();
-
     }
 
 
-    private void GenerateBossRoom()
+    private void BossRoom()
     {
-        Destroy(currentRoom);
 
-        nextRoom = Instantiate(dungeon.bossTile, new Vector3(roomPoint.position.x, roomPoint.position.y, roomPoint.position.z), Quaternion.identity);
+        player.transform.position = bossDoor.transform.position + new Vector3(0, 1);
     }
 
-    private void TryMakeRoom()
+    private void TryNextRoom()
     {
         randIndex = Random.Range(0, dungeon.tiles.Length);
         if (!usedIndexs.Contains(randIndex))
         {
-            nextRoom = Instantiate(dungeon.tiles[randIndex], new Vector3(roomPoint.position.x, roomPoint.position.y, roomPoint.position.z), Quaternion.identity);
+            player.transform.position = roomDoors[randIndex].transform.position + new Vector3(0, 1);
             usedIndexs.Add(randIndex);
             numRooms++;
         }
         else
         {
-            TryMakeRoom();
+            TryNextRoom();
         }
 
     }

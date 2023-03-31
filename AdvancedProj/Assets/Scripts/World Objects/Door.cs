@@ -10,14 +10,23 @@ public class Door : MonoBehaviour
     private Animator animator;
 
     private bool doorisLocked = true;
+
     private List<GameObject> enemies;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        enemies= new List<GameObject>();
+        GetEnemiesInRoom();
 
-        enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
+    }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            UnlockDoor();
+        }
     }
 
     public void EnemyDied(GameObject enemy)
@@ -61,11 +70,16 @@ public class Door : MonoBehaviour
         lockedDoor.SetActive(true);
     }
 
-    private void Update()
+    private void GetEnemiesInRoom()
     {
-        if(Input.GetKeyDown(KeyCode.U))
+
+        foreach(Transform t in transform.parent.parent.GetComponentsInChildren<Transform>())
         {
-            UnlockDoor();
+            if (t.CompareTag("Enemy"))
+            {
+                enemies.Add(t.gameObject);
+            }
+
         }
     }
 

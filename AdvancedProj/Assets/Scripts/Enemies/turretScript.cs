@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 
-public class turretScript : MonoBehaviour
+public class turretScript : NetworkBehaviour
 {
-    private Transform target;
     public GameObject bulletPrefab;
     private Door door;
     public bool canAttack = true, reloading = false;
@@ -22,32 +22,36 @@ public class turretScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
         animator = gameObject.GetComponent<Animator>();
         attackDelay = 0.3f;
         hp = 3;
-        target = GameObject.FindGameObjectWithTag("Player").transform;
         Physics2D.queriesStartInColliders = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (target == null)
-        {
-            gameObject.transform.parent.gameObject.SetActive(false);
-            return;
-        }
-
-
-
-
     }
 
     private void FixedUpdate()
     {
-        Vector2 targetDir = (target.position - transform.position).normalized;
-        float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
+        if (!IsServer) return;
+        //get list of targets
+        GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
+        if (targets.Length == 0) return;
+        //find nearest target
+        float minDistance = Mathf.Infinity;
+        GameObject closestTarget = null;
+        foreach (GameObject target in targets)
+        {
+            float distance = Vector3.Distance(transform.position, target.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestTarget = target;
+            }
+        }
+        Vector2 targetDir = (closestTarget.transform.position - transform.position).normalized;
         hit = Physics2D.Raycast(transform.position, targetDir, 200f);
 
         if (hit.collider != null)
@@ -57,15 +61,14 @@ public class turretScript : MonoBehaviour
         }
     }
 
-    void Shoot(Vector2 shootDir)
+    void Shoot(Vector2 targetDir)
     {
-
-        float angle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg - 90f;
+        float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
         transform.eulerAngles = new Vector3(0, 0, angle);
-        StartCoroutine(Attack(firepoint, angle));
+        StartCoroutine(Attack());
     }
 
-    public IEnumerator Attack(Transform firepoint, float angle)
+    public IEnumerator Attack()
     {
         //if there's ammo & the last attack was long enough ago
         if (currentAmmo > 0 && !reloading)
@@ -77,10 +80,7 @@ public class turretScript : MonoBehaviour
                 //calculate angle & fire
                 for (currentAmmo = 3; currentAmmo > 0;currentAmmo--)
                 {
-                    Quaternion qt = new Quaternion();
-                    qt.eulerAngles = new Vector3(0, 0, angle);
-                    GameObject currentBullet = Instantiate(bulletPrefab, firepoint.position, qt);
-                    currentBullet.layer = 10;
+                    SpawnBulletClientRpc();
                     //cooldown before next attack
                     yield return new WaitForSeconds(attackDelay);
                 }
@@ -91,6 +91,14 @@ public class turretScript : MonoBehaviour
         {
             StartCoroutine(Reload());
         }
+    }
+
+    [ClientRpc]
+    private void SpawnBulletClientRpc()
+    {
+        GameObject currentBullet = Instantiate(bulletPrefab, firepoint.position, transform.rotation);
+        currentBullet.layer = 10;
+        //currentBullet.GetComponent<NetworkObject>().Spawn(true);
     }
 
     public IEnumerator Reload()
@@ -107,13 +115,14 @@ public class turretScript : MonoBehaviour
         }
     }
 
-    public void Damage(int dmg)
+    [ServerRpc(RequireOwnership =false)]
+    public void DamageServerRpc(int dmg)
     {
         hp--;
         if (hp <= 0)
         {
             gameObject.transform.parent.GetComponent<BoxCollider2D>().enabled = false;
-            Destroy(gameObject.transform.parent.gameObject);
+            GetComponent<NetworkObject>().Despawn();
             try
             {
                 door = transform.parent.parent.GetComponentInChildren<Door>();

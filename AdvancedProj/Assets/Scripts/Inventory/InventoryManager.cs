@@ -9,6 +9,12 @@ public class InventoryManager : MonoBehaviour
 
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
+    private PlayerController player;
+
+    private void Start()
+    {
+        player = GetComponentInParent<PlayerController>();
+    }
 
     public bool AddItem(ItemObject itemPrefab)
     {
@@ -19,6 +25,7 @@ public class InventoryManager : MonoBehaviour
             newWeapon.name = itemPrefab.name;
             SpawnItem(newWeapon, inventorySlots[0]);
             inventorySlots[0].GetComponentInChildren<InventoryItem>().currentItem = newWeapon;
+            player.bulletPrefab = newWeapon.bulletPrefab;
             return true;
         }
         else if (itemPrefab is ArmourObject && inventorySlots[1].GetComponentInChildren<InventoryItem>() == null)

@@ -534,7 +534,6 @@ GameObject:
   - component: {fileID: 5731198906816114333}
   - component: {fileID: 5731198906816114330}
   - component: {fileID: 5731198906816114331}
-  - component: {fileID: 4669128614503954783}
   m_Layer: 5
   m_Name: PlayerUICanvas
   m_TagString: Untagged
@@ -625,26 +624,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4669128614503954783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5731198906816114328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5bd03f10e5a152458133e569eb1a30a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 11400000, guid: c9834602a6a2f0a4d8c1d4731bfe7ead, type: 2}
-  weaponSlot: {fileID: 0}
-  armourSlot: {fileID: 0}
-  trinketSlot: {fileID: 0}
-  chipSlot: {fileID: 0}
-  consumableSlot: {fileID: 0}
-  inventoryPanel: {fileID: 1062025342037148756}
-  inventorySlotPrefab: {fileID: 1128418476066477421, guid: 815c5f922eeabac43830720d7aa6a84d, type: 3}
 --- !u!1 &5731198907189869165
 GameObject:
   m_ObjectHideFlags: 0

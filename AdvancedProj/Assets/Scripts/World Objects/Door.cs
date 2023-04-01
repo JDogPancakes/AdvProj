@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : NetworkBehaviour
 {
     public GameObject lockedDoor;
 
@@ -25,7 +26,7 @@ public class Door : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.U))
         {
-            UnlockDoor();
+            UnlockDoorServerRpc();
         }
     }
 
@@ -38,7 +39,7 @@ public class Door : MonoBehaviour
         }
         if(enemies.Count == 0)
         {
-            UnlockDoor();
+            UnlockDoorServerRpc();
         }
     }
 
@@ -58,13 +59,14 @@ public class Door : MonoBehaviour
         }
     }
 
-    private void UnlockDoor()
+    [ServerRpc]
+    private void UnlockDoorServerRpc()
     {
         lockedDoor.SetActive(false);
-        doorisLocked= false;    
+        doorisLocked = false;    
     }
-
-    public void LockDoor()
+    [ServerRpc]
+    public void LockDoorServerRpc()
     {
         doorisLocked = true;
         lockedDoor.SetActive(true);

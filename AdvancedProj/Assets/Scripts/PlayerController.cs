@@ -1,40 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     public float movementSpeed = 6f;
     [SerializeField]
     private int hp = 5, maxHp = 5;
     public InventoryManager inventory;
-    GameObject mainInventoryGroup;
-    GameObject healthBar;
-    GameObject[] healthChunks = new GameObject[5];
-    private Rigidbody2D rb;
-    public Transform firePoint;
     public GameObject bulletPrefab;
+    [SerializeField] private GameObject mainInventoryGroup;
+    [SerializeField] private Canvas UICanvas;
+    [SerializeField] private GameObject[] healthChunks = new GameObject[5];
+    [SerializeField]  private Rigidbody2D rb;
+    [SerializeField]  private Transform firePoint;
     public Camera cam;
     public Sprite[] spriteArray;
     public Animator playerAnimator;
     public SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        rb = transform.GetComponent<Rigidbody2D>();
-        healthBar = GameObject.Find("Player/PlayerUICanvas/HPBar");
-        mainInventoryGroup = GameObject.Find("Player/PlayerUICanvas/MainInventoryGroup");
-        for (int i = 0; i < 5; i++)
-        {
-            healthChunks[i] = healthBar.transform.GetChild(i).gameObject;
-        }
-        mainInventoryGroup.gameObject.SetActive(false);
+        if (!IsLocalPlayer) return;
+        cam.gameObject.SetActive(true);
+        cam.GetComponent<AudioListener>().gameObject.SetActive(true);
+        UICanvas.gameObject.SetActive(true);
     }
+
+    
 
     // Update is called once per frame
     void Update()
     {
+        if (!IsLocalPlayer) return;
         // Movement
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
@@ -49,7 +47,10 @@ public class PlayerController : MonoBehaviour
         // Shooting
         if (Input.GetButtonDown("Fire1") && !mainInventoryGroup.gameObject.activeInHierarchy)
         {
-            Shoot();
+            Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 lookDir = mousePos - rb.position;
+            float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+            ShootServerRpc(angle);
         }
         //Reloading
         if (inventory.hasWeapon())
@@ -72,7 +73,6 @@ public class PlayerController : MonoBehaviour
             else inventory.getConsumableSlot().UpdateItem();
         }
     }
-
     void Move(Vector2 targetDirection)
     {
         rb.velocity = targetDirection * movementSpeed;
@@ -124,37 +124,37 @@ public class PlayerController : MonoBehaviour
         if (item)
         {
             if (inventory.AddItem(item.itemPrefab))
-                Destroy(other.gameObject);
-
+                other.gameObject.GetComponent<NetworkObject>().Despawn();
         }
     }
 
-    /*    private void OnApplicationQuit()
-        {
-            if (inventory) inventory.Clear();
-        }*/
-
     // Shoot Method
-    void Shoot()
+    [ServerRpc(RequireOwnership = false)]
+    void ShootServerRpc(float angle)
     {
         if (inventory.hasWeapon())
         {
-            Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 lookDir = mousePos - rb.position;
-            float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
             if (inventory.getWeapon().ammo == 0)
             {
                 StartCoroutine(inventory.getWeapon().Reload(inventory.getWeaponSlot()));
             }
             else
             {
-                StartCoroutine(inventory.getWeapon().Attack(firePoint, angle));
+                StartCoroutine(inventory.getWeapon().Attack(this, angle));
                 inventory.getWeaponSlot().UpdateItem();
             }
         }
     }
 
-    void Damage(int damage)
+    [ClientRpc]
+    public void SpawnBulletClientRpc(Quaternion rotation)
+    {
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, rotation);
+            //bullet.GetComponent<NetworkObject>().Spawn(true);
+    }
+
+    [ServerRpc]
+    void DamageServerRpc(int damage)
     {
         while (damage > 0)
         {
@@ -197,6 +197,6 @@ public class PlayerController : MonoBehaviour
     }
     void Die()
     {
-        Destroy(gameObject);
+        GetComponent<NetworkObject>().Despawn();
     }
 }

@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public abstract class WeaponObject : ItemObject
 {
+    public GameObject bulletPrefab;
     public int ammo;
     public int maxAmmo;
     public float reloadSeconds;
     public float attackDelay;
     public bool canAttack;
     public bool reloading;
-    
+
     public void Awake()
     {
         type = ItemType.Weapon;
@@ -19,7 +21,7 @@ public abstract class WeaponObject : ItemObject
     /**
      * Attack() and Reload() should be called via StartCoroutine(Attack()/Reload()), NOT DIRECTLY
      */
-    public abstract IEnumerator Attack(Transform firepoint, float angle);
+    public abstract IEnumerator Attack(PlayerController player, float angle);
     public abstract IEnumerator Reload(InventoryItem weaponItem);
     public override string Display()
     {

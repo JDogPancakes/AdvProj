@@ -8,7 +8,7 @@ public class enemy : MonoBehaviour
     private NavMeshAgent agent;
     private Transform target;
     public Animator animator;
-    private GameObject door;
+    private Door door;
     public int hp;
 
 
@@ -41,7 +41,6 @@ public class enemy : MonoBehaviour
         {
             if (agent.velocity.y > 0)
             {
-                Debug.Log("MoveDown");
                 animator.SetBool("GoingRight", false);
                 animator.SetBool("GoingLeft", false);
                 animator.SetBool("GoingDown", true);
@@ -50,7 +49,6 @@ public class enemy : MonoBehaviour
             }
             else
             {
-                Debug.Log("MoveUp");
                 animator.SetBool("GoingRight", false);
                 animator.SetBool("GoingLeft", false);
                 animator.SetBool("GoingDown", false);
@@ -62,7 +60,6 @@ public class enemy : MonoBehaviour
         {
             if (agent.velocity.x > 0)
             {
-                Debug.Log("MoveRight");
                 animator.SetBool("GoingRight", true);
                 animator.SetBool("GoingLeft", false);
                 animator.SetBool("GoingDown", false);
@@ -71,7 +68,6 @@ public class enemy : MonoBehaviour
             }
             else
             {
-                Debug.Log("MoveLeft");
                 animator.SetBool("GoingRight", false);
                 animator.SetBool("GoingLeft", true);
                 animator.SetBool("GoingDown", false);
@@ -113,8 +109,9 @@ public class enemy : MonoBehaviour
             Destroy(gameObject);
             try
             {
-                door = GameObject.FindGameObjectWithTag("Door");
-                door.GetComponentInChildren<Door>().EnemyDied(this.gameObject);
+                Debug.Log("Melee");
+                door = transform.parent.GetComponentInChildren<Door>();
+                door.EnemyDied(gameObject);
             }
             catch (System.NullReferenceException)
             {

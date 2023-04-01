@@ -9,50 +9,63 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField]
     private Dungeon dungeon;
 
-    public Transform roomPoint;
+    [SerializeField]
+    private List<Transform> roomDoors;
+
+    [SerializeField]
+    private Transform bossDoor;
+
 
     private int randIndex;
-    private GameObject currentRoom;
-    private GameObject nextRoom;
+    private GameObject player;
 
-    public GameObject startRoom;
+    private List<int> usedIndexs;
 
     private int numRooms = 0;
 
     private void Awake()
     {
-        currentRoom = startRoom;
+        usedIndexs = new List<int>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        
     }
-    public void GenerateRoom()
+    public void MoveRoom()
     {
-        if (currentRoom != null)
-        {
-            Destroy(currentRoom);
-        }
+        
 
         if (numRooms < dungeon.numRooms)
         {
 
-            randIndex = Random.Range(0, dungeon.tiles.Length);
-            nextRoom = Instantiate(dungeon.tiles[randIndex], new Vector3(roomPoint.position.x, roomPoint.position.y, roomPoint.position.z), Quaternion.identity);
+            TryNextRoom();
+            
+        }
+        else
+        {
+            BossRoom();
+        }
+
+    }
+
+
+    private void BossRoom()
+    {
+
+        player.transform.position = bossDoor.transform.position + new Vector3(0, 1);
+    }
+
+    private void TryNextRoom()
+    {
+        randIndex = Random.Range(0, dungeon.tiles.Length);
+        if (!usedIndexs.Contains(randIndex))
+        {
+            player.transform.position = roomDoors[randIndex].transform.position + new Vector3(0, 1);
+            usedIndexs.Add(randIndex);
             numRooms++;
         }
         else
         {
-            GenerateBossRoom();
+            TryNextRoom();
         }
 
-        currentRoom = nextRoom;
-        currentRoom.transform.SetAsFirstSibling();
-
     }
-
-
-    private void GenerateBossRoom()
-    {
-        Destroy(currentRoom);
-
-        nextRoom = Instantiate(dungeon.bossTile, new Vector3(roomPoint.position.x, roomPoint.position.y, roomPoint.position.z), Quaternion.identity);
-    }
-
 }

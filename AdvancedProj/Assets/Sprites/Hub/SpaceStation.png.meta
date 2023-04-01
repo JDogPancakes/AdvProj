@@ -1,34 +1,37 @@
 fileFormatVersion: 2
-guid: 39bc3eec479faaa43932575c9fe92a69
+guid: e196bd151a7167d4783bf5a65be81e6a
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: -7709297464541498756
-    second: Interior Corner
+    second: SpaceStation_0
   - first:
       213: 4382874157453568106
-    second: Interior End
+    second: SpaceStation_1
   - first:
       213: 2933706047028373289
-    second: Floor
+    second: SpaceStation_2
   - first:
       213: 1234755071292604582
-    second: Exterior Corner
+    second: SpaceStation_3
   - first:
       213: 5920602748147645133
-    second: Exterior Top
+    second: SpaceStation_4
   - first:
       213: 1942671570916924360
-    second: Exterior Right
+    second: SpaceStation_5
   - first:
       213: 5735549474756780668
-    second: Exterior Side
+    second: SpaceStation_6
   - first:
       213: 4601954470110660482
-    second: Interior T
+    second: SpaceStation_7
   - first:
       213: -8460641266010759075
-    second: Interior Straight
+    second: SpaceStation_8
+  - first:
+      213: 2742812693303711905
+    second: SpaceStation_9
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -119,15 +122,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Interior Corner
+      name: SpaceStation_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 48
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -140,15 +143,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Interior End
+      name: SpaceStation_1
       rect:
         serializedVersion: 2
         x: 16
-        y: 0
+        y: 48
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -161,15 +164,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Floor
+      name: SpaceStation_2
       rect:
         serializedVersion: 2
         x: 32
-        y: 0
+        y: 48
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -182,15 +185,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Exterior Corner
+      name: SpaceStation_3
       rect:
         serializedVersion: 2
-        x: 48
-        y: 0
+        x: 0
+        y: 32
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -203,15 +206,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Exterior Top
+      name: SpaceStation_4
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 16
+        y: 32
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -224,15 +227,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Exterior Right
+      name: SpaceStation_5
       rect:
         serializedVersion: 2
-        x: 80
-        y: 0
+        x: 32
+        y: 32
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -245,15 +248,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Exterior Side
+      name: SpaceStation_6
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
+        x: 0
+        y: 16
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -266,15 +269,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Interior T
+      name: SpaceStation_7
       rect:
         serializedVersion: 2
-        x: 112
-        y: 0
+        x: 16
+        y: 16
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -287,15 +290,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Interior Straight
+      name: SpaceStation_8
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
+        x: 32
+        y: 16
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -303,6 +306,27 @@ TextureImporter:
       bones: []
       spriteID: d50ea6f4893c59a80800000000000000
       internalID: -8460641266010759075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpaceStation_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a8dccdcc9d601620800000000000000
+      internalID: 2742812693303711905
       vertices: []
       indices: 
       edges: []

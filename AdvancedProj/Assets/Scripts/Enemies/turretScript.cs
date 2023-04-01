@@ -7,7 +7,7 @@ public class turretScript : MonoBehaviour
 {
     private Transform target;
     public GameObject bulletPrefab;
-    private GameObject door;
+    private Door door;
     public bool canAttack = true, reloading = false;
     public Transform firepoint;
 
@@ -17,7 +17,6 @@ public class turretScript : MonoBehaviour
     public float attackDelay;
 
     private RaycastHit2D hit;
-    private LayerMask lm;
     private Animator animator;
 
     // Start is called before the first frame update
@@ -117,8 +116,8 @@ public class turretScript : MonoBehaviour
             Destroy(gameObject.transform.parent.gameObject);
             try
             {
-                door = GameObject.FindGameObjectWithTag("Door");
-                door.GetComponentInChildren<Door>().EnemyDied(this.gameObject.transform.parent.gameObject);
+                door = transform.parent.parent.GetComponentInChildren<Door>();
+                door.EnemyDied(this.gameObject.transform.parent.gameObject);
             } catch (System.NullReferenceException) 
             {
                 Debug.Log("Door Not Found");

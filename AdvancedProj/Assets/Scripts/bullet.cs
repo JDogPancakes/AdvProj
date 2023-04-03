@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Hittable"))
         {
-            if(collision.gameObject.GetComponent<NetworkObject>().IsSpawned)collision.gameObject.BroadcastMessage("DamageServerRpc", 1);
+            if(collision.gameObject.GetComponentInChildren<NetworkObject>().IsSpawned)collision.gameObject.BroadcastMessage("DamageServerRpc", 1);
         }
         Destroy(gameObject);
     }

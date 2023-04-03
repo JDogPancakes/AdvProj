@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Toy Gun", menuName = "ScriptableObjects/Weapons/Toy Gun")]
-public class ToyGunObject : WeaponObject
+[CreateAssetMenu(fileName = "SMG", menuName = "ScriptableObjects/Weapons/SMG")]
+public class SmgObject : WeaponObject
 {
     new public void Awake()
     {
         base.Awake();
-        ammo = maxAmmo = 10;
+        ammo = maxAmmo = 15;
         reloadSeconds = 2f;
-        attackDelay = 0.5f;
+        attackDelay = 0.1f;
         canAttack = true;
         reloading = false;
     }
@@ -26,7 +26,7 @@ public class ToyGunObject : WeaponObject
             //max inaccuracy of 5 degrees each way
             qt.eulerAngles = new Vector3(0, 0, angle + Random.Range(-5f, 5f));
             ammo--;
-            player.SpawnBulletClientRpc(qt, 1, 0);
+            player.SpawnBulletClientRpc(qt, 1, 1);
             
             //cooldown before next attack
             yield return new WaitForSeconds(attackDelay);

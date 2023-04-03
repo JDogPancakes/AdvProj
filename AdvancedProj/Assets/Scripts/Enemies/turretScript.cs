@@ -94,6 +94,7 @@ public class TurretScript : NetworkBehaviour
     {
         GameObject currentBullet = Instantiate(bulletPrefab, firepoint.position, transform.rotation);
         currentBullet.layer = 10;
+
     }
 
     public IEnumerator Reload()

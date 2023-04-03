@@ -11,8 +11,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private GameObject mainInventoryGroup;
     [SerializeField] private Canvas UICanvas;
     [SerializeField] private GameObject[] healthChunks = new GameObject[5];
-    [SerializeField]  private Rigidbody2D rb;
-    [SerializeField]  private Transform firePoint;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Transform firePoint;
     public Camera cam;
     public Sprite[] spriteArray;
     public Animator playerAnimator;
@@ -27,7 +27,7 @@ public class PlayerController : NetworkBehaviour
         UICanvas.gameObject.SetActive(true);
     }
 
-    
+
 
     // Update is called once per frame
     void Update()
@@ -45,7 +45,7 @@ public class PlayerController : NetworkBehaviour
             ActivateChip();
         }
         // Shooting
-        if (Input.GetButtonDown("Fire1") && !mainInventoryGroup.activeInHierarchy)
+        if (Input.GetButton("Fire1") && !mainInventoryGroup.activeInHierarchy)
         {
             Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 lookDir = mousePos - rb.position;
@@ -141,15 +141,17 @@ public class PlayerController : NetworkBehaviour
             else
             {
                 StartCoroutine(inventory.getWeapon().Attack(this, angle));
-                inventory.getWeaponSlot().UpdateItem();
             }
         }
     }
 
     [ClientRpc]
-    public void SpawnBulletClientRpc(Quaternion rotation)
+    public void SpawnBulletClientRpc(Quaternion rotation, int dmg, int ricochets)
     {
-            Instantiate(bulletPrefab, firePoint.position, rotation);
+        Bullet bullet = Instantiate(bulletPrefab, firePoint.position, rotation).GetComponent<Bullet>();
+        bullet.damage = dmg;
+        bullet.ricochetsRemaining = ricochets;
+        if (IsOwner) inventory.getWeaponSlot().UpdateItem();
     }
 
     [ServerRpc]

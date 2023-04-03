@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Shotgun", menuName = "ScriptableObjects/Weapons/Shotgun")]
+[CreateAssetMenu(fileName = "Shotgun", menuName = "ScriptableObjects/Weapons/Shotgun")]
 public class ShotgunObject : WeaponObject
 {
     public int bulletCount = 5;
@@ -32,15 +32,16 @@ public class ShotgunObject : WeaponObject
             {
                 //lock out attack
                 canAttack = false;
+
                 //fire bullets
+                ammo--;
                 for (int i = 0; i < bulletCount; i++)
                 {
                     //calculate angle & fire
                     Quaternion qt = new Quaternion();
                     qt.eulerAngles = new Vector3(0, 0, angle + Random.Range(-spreadAngle, spreadAngle));
-                    player.SendMessage("SpawnBulletClientRpc", qt);
+                    player.SpawnBulletClientRpc(qt, 1, 0);
                 }
-                ammo--;
 
                 //cooldown before next attack
                 yield return new WaitForSeconds(attackDelay);

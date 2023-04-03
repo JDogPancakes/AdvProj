@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 375a1a3eeb6009c40925f0b8c86383c8, type: 3}
+  m_Name: SMG
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 79c746c8d7c42db44b3fb8f3e48680de, type: 3}
+  type: 0
+  description: 
+  bulletPrefab: {fileID: 6413126482180201937, guid: fbf32a2c2f15b074dbf4944b6679ad55, type: 3}
+  ammo: 15
+  maxAmmo: 15
+  reloadSeconds: 2
+  attackDelay: 0.1
+  canAttack: 1
+  reloading: 0

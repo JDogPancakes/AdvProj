@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
+
 public abstract class WeaponObject : ItemObject
 {
     public GameObject bulletPrefab;
@@ -22,7 +23,19 @@ public abstract class WeaponObject : ItemObject
      * Attack() and Reload() should be called via StartCoroutine(Attack()/Reload()), NOT DIRECTLY
      */
     public abstract IEnumerator Attack(PlayerController player, float angle);
-    public abstract IEnumerator Reload(InventoryItem weaponItem);
+    public virtual IEnumerator Reload(InventoryItem weaponItem)
+    {
+        if (!reloading)
+        {
+            reloading = true;
+            ammo = 0; //so you can't fire while reloading
+            weaponItem.UpdateItem();
+            yield return new WaitForSeconds(reloadSeconds);
+            ammo = maxAmmo;
+            reloading = false;
+            weaponItem.UpdateItem();
+        }
+    }
     public override string Display()
     {
         if (reloading) return DisplayReloading();

@@ -15,7 +15,7 @@ public class HealthPotObject : ConsumableObject
 
     public override void Consume(PlayerController target)
     {
-        if(target.getHP() < target.getMaxHP())
+        if(target.GetHP() < target.GetMaxHP())
         {
             quantity--;
             target.Heal(2);

@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 
-public class turretScript : NetworkBehaviour
+public class TurretScript : NetworkBehaviour
 {
     public GameObject bulletPrefab;
     private Door door;
@@ -28,10 +28,6 @@ public class turretScript : NetworkBehaviour
         Physics2D.queriesStartInColliders = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     private void FixedUpdate()
     {
@@ -98,7 +94,6 @@ public class turretScript : NetworkBehaviour
     {
         GameObject currentBullet = Instantiate(bulletPrefab, firepoint.position, transform.rotation);
         currentBullet.layer = 10;
-        //currentBullet.GetComponent<NetworkObject>().Spawn(true);
     }
 
     public IEnumerator Reload()

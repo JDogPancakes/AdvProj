@@ -1,22 +1,22 @@
 using System.Collections;
+using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class BossController : MonoBehaviour
+public class BossController : NetworkBehaviour
 {
-    public GameObject bullet;
+    public GameObject bulletPrefab;
     public GameObject shieldTurrets;
 
 
-    private Transform player;
-    public BossHPSlider hpSlider;
+    private List<GameObject> players;
 
-    [SerializeField]
     public float maxHP = 10;
 
     public float hp;
     private bool isShielded, hasBeenShielded = false;
 
-    private bool canAttack = false;
+    public bool canAttack = false;
 
 
     public float attackCooldown = 1f;
@@ -24,22 +24,24 @@ public class BossController : MonoBehaviour
 
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
         hp = maxHP;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!IsServer) return;
         StartCoroutine(TryAttack());
     }
 
-    public void Damage(int dmg)
+
+    [ServerRpc]
+    public void DamageServerRpc(int dmg)
     {
         if (!isShielded)
         {
             hp -= dmg;
-            hpSlider.SetHp(hp);
 
             if (!hasBeenShielded && hp <= (maxHP / 2))
             {
@@ -55,20 +57,37 @@ public class BossController : MonoBehaviour
 
     }
 
+
     private IEnumerator TryAttack()
     {
         if (canAttack)
         {
             canAttack = false;
             yield return new WaitForSeconds(attackCooldown);
+
+            GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
+            if (targets.Length == 0) yield return null;
+            //find nearest target
+            float minDistance = Mathf.Infinity;
+            GameObject closestTarget = null;
+            foreach (GameObject target in targets)
+            {
+                float distance = Vector3.Distance(transform.position, target.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closestTarget = target;
+                }
+            }
+
             int selectedAttack = Random.Range(0, 6);
             if (selectedAttack < 3)
             {
-                yield return LightAttack();
+                yield return LightAttack(closestTarget.transform);
             }
             else if (selectedAttack < 5)
             {
-                yield return MediumAttack();
+                yield return MediumAttack(closestTarget.transform);
             }
             else
             {
@@ -78,38 +97,31 @@ public class BossController : MonoBehaviour
         }
     }
 
-    private IEnumerator LightAttack()
+    private IEnumerator LightAttack(Transform player)
     {
         for (int bulletCount = Random.Range(3, 6); bulletCount > 0; bulletCount--)
         {
             Vector2 targetDir = (player.position - transform.position).normalized;
             float angle = (Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f) % 360;
 
-            Quaternion bulletDirection = new Quaternion();
-            bulletDirection.eulerAngles = new Vector3(0, 0, angle);
-
-            GameObject currentBullet = Instantiate(bullet, transform.position, bulletDirection);
-            currentBullet.layer = 10;
+            SpawnBulletClientRpc(angle);
 
             yield return new WaitForSeconds(0.25f);
         }
     }
 
-    private IEnumerator MediumAttack()
+    private IEnumerator MediumAttack(Transform player)
     {
         int bulletCount = 7;
 
-        //calculate angle to target -45 degrees
         Vector2 targetDir = (player.position - transform.position).normalized;
+
+        //calculate angle to target -45 degrees
         float angleMod = (Random.Range(0, 2) == 1) ? -10 : 10;
-        float angle = (Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f - (angleMod*(bulletCount/2))) % 360;
+        float angle = (Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f - (angleMod * (bulletCount / 2))) % 360;
         for (int i = 0; i < bulletCount; i++)
         {
-            Quaternion bulletDirection = new Quaternion();
-            bulletDirection.eulerAngles = new Vector3(0, 0, angle);
-
-            GameObject currentBullet = Instantiate(bullet, transform.position, bulletDirection);
-            currentBullet.layer = 10;
+            SpawnBulletClientRpc(angle);
             angle = (angle + angleMod) % 360;
             yield return new WaitForSeconds(0.1f);
         }
@@ -120,20 +132,25 @@ public class BossController : MonoBehaviour
         int numWaves = 3;
         int bulletsPerWave = 24;
 
-        Vector2 targetDir = (player.position - transform.position).normalized;
-        float angle = (Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f) % 360;
+        float angle = 0;
         for (int i = 0; i < numWaves; i++)
         {
             yield return new WaitForSeconds(1);
             for (int j = 0; j < bulletsPerWave; j++)
             {
-                Quaternion bulletDirection = new Quaternion();
-                bulletDirection.eulerAngles = new Vector3(0, 0, angle);
-                Instantiate(bullet, transform.position, bulletDirection).layer = 10;
+                SpawnBulletClientRpc(angle);
                 angle = (angle + (360 / bulletsPerWave)) % 360;
             }
             angle = (angle + 10) % 360;
         }
+    }
+
+    [ClientRpc]
+    private void SpawnBulletClientRpc(float angle)
+    {
+        Quaternion bulletDirection = new Quaternion();
+        bulletDirection.eulerAngles = new Vector3(0, 0, angle);
+        Instantiate(bulletPrefab, transform.position, bulletDirection).layer = 10;
     }
 
     private void SpawnShieldTurrets()
@@ -151,10 +168,5 @@ public class BossController : MonoBehaviour
             isShielded = false;
             GetComponent<SpriteRenderer>().color = Color.white;
         }
-    }
-
-    public void SetCanAttack(bool bossCanAttack)
-    {
-        canAttack = bossCanAttack;
     }
 }

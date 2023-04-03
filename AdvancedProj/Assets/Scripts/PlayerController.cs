@@ -45,7 +45,7 @@ public class PlayerController : NetworkBehaviour
             ActivateChip();
         }
         // Shooting
-        if (Input.GetButtonDown("Fire1") && !mainInventoryGroup.gameObject.activeInHierarchy)
+        if (Input.GetButtonDown("Fire1") && !mainInventoryGroup.activeInHierarchy)
         {
             Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 lookDir = mousePos - rb.position;
@@ -149,8 +149,7 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     public void SpawnBulletClientRpc(Quaternion rotation)
     {
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, rotation);
-            //bullet.GetComponent<NetworkObject>().Spawn(true);
+            Instantiate(bulletPrefab, firePoint.position, rotation);
     }
 
     [ServerRpc]
@@ -187,11 +186,11 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    public int getHP()
+    public int GetHP()
     {
         return hp;
     }
-    public int getMaxHP()
+    public int GetMaxHP()
     {
         return maxHp;
     }

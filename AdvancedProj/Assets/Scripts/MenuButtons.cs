@@ -16,7 +16,7 @@ public class MenuButtons : MonoBehaviour
     public void HostButton()
     {
         NetworkManager.Singleton.StartHost();
-        NetworkManager.Singleton.SceneManager.LoadScene("Austin Test Scene", LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene("Hub", LoadSceneMode.Single);
     }
     public void ClientButton()
     {

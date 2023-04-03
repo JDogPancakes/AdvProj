@@ -24,8 +24,9 @@ public class Enemy : NetworkBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        if (!IsServer) return;
         //get list of targets
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
         //find nearest target
@@ -40,15 +41,14 @@ public class Enemy : NetworkBehaviour
             }
         }
         Vector2 targetDir = (closestTarget.transform.position - transform.position).normalized;
-        float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDir, 200f);
 
-        if (hit.collider != null && hit.collider.tag.Equals("Player"))
+        if (hit.collider != null && hit.collider.CompareTag("Player"))
         {
             StartCoroutine(TrackPlayer(closestTarget.transform));
         }
 
-        HandleAnimation();
+        //HandleAnimation();
     }
 
     private void HandleAnimation()
@@ -115,7 +115,8 @@ public class Enemy : NetworkBehaviour
             trackingPlayer = false;
         }
     }
-    public void Damage(int dmg)
+    [ServerRpc]
+    public void DamageServerRpc(int dmg)
     {
         hp-= dmg;
         if (hp <= 0)
@@ -124,7 +125,6 @@ public class Enemy : NetworkBehaviour
             GetComponent<NetworkObject>().Despawn();
             try
             {
-                Debug.Log("Melee");
                 door = transform.parent.GetComponentInChildren<Door>();
                 door.EnemyDied(gameObject);
             }
@@ -137,9 +137,9 @@ public class Enemy : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.BroadcastMessage("Damage", 1);
+            collision.gameObject.BroadcastMessage("DamageServerRpc", 1);
 
         }
     }

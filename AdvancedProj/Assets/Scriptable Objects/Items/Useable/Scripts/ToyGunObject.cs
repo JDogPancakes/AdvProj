@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Toy Gun", menuName = "ScriptableObjects/Weapons/Toy Gun")]
 public class ToyGunObject : WeaponObject
 {
-    public GameObject bulletPrefab;
     new public void Awake()
     {
         base.Awake();
@@ -17,7 +16,7 @@ public class ToyGunObject : WeaponObject
         reloading = false;
     }
     
-    override public IEnumerator Attack(Transform firepoint, float angle)
+    override public IEnumerator Attack(PlayerController player, float angle)
     {
         //if there's ammo & the last attack was long enough ago
         if (ammo > 0 && canAttack)
@@ -26,7 +25,7 @@ public class ToyGunObject : WeaponObject
             //calculate angle & fire
             Quaternion qt = new Quaternion();
             qt.eulerAngles = new Vector3(0, 0, angle);
-            Instantiate(bulletPrefab, firepoint.position, qt);
+            player.SendMessage("SpawnBulletClientRpc", qt);
             ammo--;
             
             //cooldown before next attack

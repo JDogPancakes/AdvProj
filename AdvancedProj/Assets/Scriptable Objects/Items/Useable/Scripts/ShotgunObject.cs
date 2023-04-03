@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Shotgun", menuName = "ScriptableObjects/Weapons/Shotgun")]
 public class ShotgunObject : WeaponObject
 {
-    public GameObject bulletPrefab;
     public int bulletCount = 5;
     public float spreadAngle = 7.5f;
     public bool cancelReload = false;
@@ -19,7 +18,7 @@ public class ShotgunObject : WeaponObject
         canAttack = true;
         reloading = false;
     }
-    public override IEnumerator Attack(Transform firepoint, float angle)
+    public override IEnumerator Attack(PlayerController player, float angle)
     {
         //if there's ammo & the last attack was long enough ago
         if (canAttack)
@@ -39,7 +38,7 @@ public class ShotgunObject : WeaponObject
                     //calculate angle & fire
                     Quaternion qt = new Quaternion();
                     qt.eulerAngles = new Vector3(0, 0, angle + Random.Range(-spreadAngle, spreadAngle));
-                    Instantiate(bulletPrefab, firepoint.position, qt);
+                    player.SendMessage("SpawnBulletClientRpc", qt);
                 }
                 ammo--;
 

@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemy : MonoBehaviour
+public class Enemy : NetworkBehaviour
 {
     private NavMeshAgent agent;
-    private Transform target;
     public Animator animator;
     private Door door;
     public int hp;
@@ -18,25 +18,41 @@ public class enemy : MonoBehaviour
     void Start()
     {
         hp = 3;
-        target = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
-        Vector2 targetDir = (target.position - transform.position).normalized;
-        float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
+        if (!IsServer) return;
+        //get list of targets
+        GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
+        //find nearest target
+        float minDistance = Mathf.Infinity;
+        GameObject closestTarget = null;
+        foreach(GameObject target in targets){
+            float distance = Vector3.Distance(transform.position, target.transform.position);
+            if(distance < minDistance)
+            {
+                minDistance = distance;
+                closestTarget = target;
+            }
+        }
+        Vector2 targetDir = (closestTarget.transform.position - transform.position).normalized;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDir, 200f);
 
-        if (hit.collider != null && hit.collider.tag.Equals("Player"))
+        if (hit.collider != null && hit.collider.CompareTag("Player"))
         {
-            StartCoroutine(TrackPlayer());
+            StartCoroutine(TrackPlayer(closestTarget.transform));
         }
 
+        //HandleAnimation();
+    }
+
+    private void HandleAnimation()
+    {
         if (Mathf.Abs(agent.velocity.y) > Mathf.Abs(agent.velocity.x))
         {
             if (agent.velocity.y > 0)
@@ -75,7 +91,8 @@ public class enemy : MonoBehaviour
                 animator.SetBool("Idle", false);
 
             }
-        } else
+        }
+        else
         {
             animator.SetBool("GoingRight", false);
             animator.SetBool("GoingLeft", false);
@@ -83,11 +100,9 @@ public class enemy : MonoBehaviour
             animator.SetBool("GoingUp", false);
             animator.SetBool("Idle", true);
         }
-
-
     }
 
-    private IEnumerator TrackPlayer()
+    private IEnumerator TrackPlayer(Transform target)
     {
         if (!trackingPlayer)
         {
@@ -100,16 +115,16 @@ public class enemy : MonoBehaviour
             trackingPlayer = false;
         }
     }
-    public void Damage(int dmg)
+    [ServerRpc]
+    public void DamageServerRpc(int dmg)
     {
-        hp--;
+        hp-= dmg;
         if (hp <= 0)
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            Destroy(gameObject);
+            GetComponent<NetworkObject>().Despawn();
             try
             {
-                Debug.Log("Melee");
                 door = transform.parent.GetComponentInChildren<Door>();
                 door.EnemyDied(gameObject);
             }
@@ -122,9 +137,9 @@ public class enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.BroadcastMessage("Damage", 1);
+            collision.gameObject.BroadcastMessage("DamageServerRpc", 1);
 
         }
     }

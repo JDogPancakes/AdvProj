@@ -1680,6 +1680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4405484636863824648}
+  - component: {fileID: 7659908892588823351}
   m_Layer: 0
   m_Name: Room3
   m_TagString: Untagged
@@ -1695,7 +1696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4405484636863824649}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8823219530733953567}
@@ -1712,6 +1713,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7659908892588823351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4405484636863824649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &4405484636873773865
 GameObject:
   m_ObjectHideFlags: 0
@@ -4665,6 +4682,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4405484636863824648}
     m_Modifications:
+    - target: {fileID: 4975594704506689151, guid: 3642762c47b9f1d469a9c840cafe436a, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 6496617451784885321, guid: 3642762c47b9f1d469a9c840cafe436a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -4731,6 +4752,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4405484636863824648}
     m_Modifications:
+    - target: {fileID: 1227648896493854881, guid: 87713b1eaeb029f4394e92e5e47009ef, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 5947296493070686349, guid: 87713b1eaeb029f4394e92e5e47009ef, type: 3}
       propertyPath: m_Name
       value: Turret (1)
@@ -4793,6 +4818,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4405484636863824648}
     m_Modifications:
+    - target: {fileID: 1227648896493854881, guid: 87713b1eaeb029f4394e92e5e47009ef, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 5947296493070686349, guid: 87713b1eaeb029f4394e92e5e47009ef, type: 3}
       propertyPath: m_Name
       value: Turret (3)
@@ -4855,6 +4884,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4405484636863824648}
     m_Modifications:
+    - target: {fileID: 1227648896493854881, guid: 87713b1eaeb029f4394e92e5e47009ef, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 5947296493070686349, guid: 87713b1eaeb029f4394e92e5e47009ef, type: 3}
       propertyPath: m_Name
       value: Turret
@@ -4984,6 +5017,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4405484636863824648}
     m_Modifications:
+    - target: {fileID: 1227648896493854881, guid: 87713b1eaeb029f4394e92e5e47009ef, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 5947296493070686349, guid: 87713b1eaeb029f4394e92e5e47009ef, type: 3}
       propertyPath: m_Name
       value: Turret (2)
@@ -5046,6 +5083,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4405484636863824648}
     m_Modifications:
+    - target: {fileID: -6223511135550215792, guid: 60a2186d4b9de2144af585771ec652e2, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 2570897483776608514, guid: 60a2186d4b9de2144af585771ec652e2, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -5170,6 +5211,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4405484636863824648}
     m_Modifications:
+    - target: {fileID: -6223511135550215792, guid: 60a2186d4b9de2144af585771ec652e2, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 2570897483776608514, guid: 60a2186d4b9de2144af585771ec652e2, type: 3}
       propertyPath: m_Name
       value: Enemy (2)
@@ -5232,6 +5277,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4405484636863824648}
     m_Modifications:
+    - target: {fileID: -6223511135550215792, guid: 60a2186d4b9de2144af585771ec652e2, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 2570897483776608514, guid: 60a2186d4b9de2144af585771ec652e2, type: 3}
       propertyPath: m_Name
       value: Enemy

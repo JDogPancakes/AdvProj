@@ -6,11 +6,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Text.RegularExpressions;
+using System;
 //using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
-    public TMP_InputField IpInput, PortInput;
+    public TMP_InputField IpInput;
+    public TMP_InputField PortInput;
 
 
     public void HostButton()
@@ -24,12 +26,13 @@ public class MenuButtons : MonoBehaviour
         string ip;
         try
         {
-            ip = "" + IpInput.text;
             Regex ipRegex = new Regex("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}");
+            ip = ipRegex.Match(IpInput.text).Value;
             if (!ipRegex.IsMatch(ip)) ip = "127.0.0.1";
         }
-        catch
+        catch (Exception e)
         {
+            Debug.LogError(e.Message);
             ip = "127.0.0.1";
         }
 
@@ -41,10 +44,13 @@ public class MenuButtons : MonoBehaviour
             port = int.Parse(PortInput.text);
 
             if (port > 0 || port > 65535) port = 7777;
-        } catch
+        }
+        catch
         {
             port = 7777;
         }
+
+        Debug.LogFormat("Connecting to {0}:{1}", ip, port);
 
         //connect
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ip, (ushort)port);

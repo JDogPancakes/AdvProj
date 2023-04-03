@@ -1175,7 +1175,7 @@ MonoBehaviour:
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
     Address: 127.0.0.1
-    Port: 7777
+    Port: 4567
     ServerListenAddress: 
   DebugSimulator:
     PacketDelayMS: 0
@@ -1207,11 +1207,6 @@ MonoBehaviour:
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
       Prefab: {fileID: 5516589017073845707, guid: 56dfb5bd8c010174980f9f4a3b6e1d0b, type: 3}
-      SourcePrefabToOverride: {fileID: 0}
-      SourceHashToOverride: 0
-      OverridingTargetPrefab: {fileID: 0}
-    - Override: 0
-      Prefab: {fileID: 58784940086041546, guid: a89862471f34d464e9ca9ab7dfa32cf9, type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
@@ -1963,7 +1958,6 @@ GameObject:
   - component: {fileID: 595637369}
   - component: {fileID: 595637368}
   - component: {fileID: 595637367}
-  - component: {fileID: 595637366}
   m_Layer: 5
   m_Name: ClientButton
   m_TagString: Untagged
@@ -1991,20 +1985,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 190, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &595637366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 595637364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10587da04526e794f811de8dc2c510b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IpInput: {fileID: 0}
-  PortInput: {fileID: 0}
 --- !u!114 &595637367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2049,7 +2029,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 595637366}
+      - m_Target: {fileID: 1040453737}
         m_TargetAssemblyTypeName: MenuButtons, Assembly-CSharp
         m_MethodName: ClientButton
         m_Mode: 1
@@ -2738,6 +2718,7 @@ GameObject:
   - component: {fileID: 1040453734}
   - component: {fileID: 1040453736}
   - component: {fileID: 1040453735}
+  - component: {fileID: 1040453737}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -2808,6 +2789,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1040453733}
   m_CullTransparentMesh: 1
+--- !u!114 &1040453737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040453733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10587da04526e794f811de8dc2c510b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IpInput: {fileID: 108565149}
+  PortInput: {fileID: 77622024}
 --- !u!1 &1061260613
 GameObject:
   m_ObjectHideFlags: 0
@@ -3801,7 +3796,6 @@ GameObject:
   - component: {fileID: 1269743358}
   - component: {fileID: 1269743357}
   - component: {fileID: 1269743356}
-  - component: {fileID: 1269743355}
   m_Layer: 5
   m_Name: ClientButton
   m_TagString: Untagged
@@ -3829,20 +3823,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 190, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1269743355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1269743353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10587da04526e794f811de8dc2c510b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IpInput: {fileID: 0}
-  PortInput: {fileID: 0}
 --- !u!114 &1269743356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3949,7 +3929,6 @@ GameObject:
   - component: {fileID: 1291778123}
   - component: {fileID: 1291778122}
   - component: {fileID: 1291778121}
-  - component: {fileID: 1291778120}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -3977,20 +3956,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -155}
   m_SizeDelta: {x: 190, y: 45}
   m_Pivot: {x: 1.2, y: 0.5}
---- !u!114 &1291778120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291778118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10587da04526e794f811de8dc2c510b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IpInput: {fileID: 108565149}
-  PortInput: {fileID: 77622024}
 --- !u!114 &1291778121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4035,7 +4000,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1291778120}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuButtons, Assembly-CSharp
         m_MethodName: QuitButton
         m_Mode: 1
@@ -4995,7 +4960,6 @@ GameObject:
   - component: {fileID: 2114810077}
   - component: {fileID: 2114810076}
   - component: {fileID: 2114810075}
-  - component: {fileID: 2114810074}
   m_Layer: 5
   m_Name: HostButton
   m_TagString: Untagged
@@ -5023,20 +4987,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 57}
   m_SizeDelta: {x: 190, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2114810074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2114810072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10587da04526e794f811de8dc2c510b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IpInput: {fileID: 0}
-  PortInput: {fileID: 0}
 --- !u!114 &2114810075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5081,7 +5031,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2114810074}
+      - m_Target: {fileID: 1040453737}
         m_TargetAssemblyTypeName: MenuButtons, Assembly-CSharp
         m_MethodName: HostButton
         m_Mode: 1

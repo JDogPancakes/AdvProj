@@ -28,8 +28,6 @@ public class PlayerController : NetworkBehaviour
         cam.gameObject.SetActive(true);
         cam.GetComponent<AudioListener>().gameObject.SetActive(true);
         UICanvas.gameObject.SetActive(true);
-        lr = GetComponent<LineRenderer>();
-        lr.useWorldSpace = true;
     }
 
 

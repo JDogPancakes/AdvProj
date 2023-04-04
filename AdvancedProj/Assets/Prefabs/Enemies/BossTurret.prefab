@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 7850731460154632193}
   - component: {fileID: 6231018238036372756}
   m_Layer: 9
-  m_Name: HeavyTurretD1
+  m_Name: BossTurret
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 2745424166212464318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 2745424167306658185}
   - {fileID: 2745424166985316424}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 1198977872662974101}
   - component: {fileID: 4026472451232385764}
   - component: {fileID: 3980026788004044269}
-  - component: {fileID: 8809806455576548283}
+  - component: {fileID: 5530377481426957509}
   m_Layer: 9
   m_Name: TurretBody
   m_TagString: Untagged
@@ -271,7 +271,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -7800726130997224431, guid: 2a0784fe45ccdd349888ff87e0ace1c9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5801887, g: 1, b: 0.99557066, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -368,7 +368,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &8809806455576548283
+--- !u!114 &5530377481426957509
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -377,15 +377,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2745424167306658184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 396df973809f82d47be85bc9ef66a53e, type: 3}
+  m_Script: {fileID: 11500000, guid: de656ff9aa3b7eb4581965333e7471e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7264133238368728070, guid: cb9f86dcfd194d2438053350ecd2eb62, type: 3}
   canAttack: 1
   reloading: 0
   firepoint: {fileID: 2745424165797087227}
-  hp: 8
-  currentAmmo: 10
-  maxAmmo: 10
-  reloadDelay: 4
-  attackDelay: 0.1
+  hp: 0
+  currentAmmo: 20
+  maxAmmo: 20
+  reloadDelay: 1
+  attackDelay: 0

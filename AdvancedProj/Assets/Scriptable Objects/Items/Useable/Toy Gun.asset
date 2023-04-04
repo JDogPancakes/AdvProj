@@ -15,11 +15,9 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 6a4d657050ad5e040954d326f4301e50, type: 3}
   type: 0
   description: 
-  bulletPrefab: {fileID: 6413126482180201937, guid: fbf32a2c2f15b074dbf4944b6679ad55, type: 3}
   ammo: 10
   maxAmmo: 10
   reloadSeconds: 2
   attackDelay: 0.5
   canAttack: 1
-  reloading: 0
-  sound: {fileID: 8300000, guid: c51286a84d1d0a34fa1c153e8aa74edf, type: 3}
+  bulletPrefab: {fileID: 6413126482180201937, guid: fbf32a2c2f15b074dbf4944b6679ad55, type: 3}

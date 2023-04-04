@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 1774294464354036982}
   - component: {fileID: 7029766968098878493}
   - component: {fileID: 1155822960550716953}
+  - component: {fileID: 8434547546836602918}
   m_Layer: 2
   m_Name: Enemy
   m_TagString: Enemy
@@ -36,8 +37,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.8226179, y: 1.0753223, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7655315577156199316}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2115121087}
   hp: 0
-  robotMoving: {fileID: 6144804271573584946}
+  moving: {fileID: 8434547546836602918}
 --- !u!61 &-1930820861042710537
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -263,56 +263,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3348557081734821488
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7655315577156199316}
-  - component: {fileID: 6144804271573584946}
-  m_Layer: 0
-  m_Name: Audio
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7655315577156199316
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3348557081734821488}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00000011920929, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2570897483776608527}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &6144804271573584946
+--- !u!82 &8434547546836602918
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3348557081734821488}
+  m_GameObject: {fileID: 2570897483776608514}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ed408a4ce9f27574681227b0e62e1462, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.45
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 13
+  Priority: 128
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

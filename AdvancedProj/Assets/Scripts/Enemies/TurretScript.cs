@@ -15,11 +15,9 @@ public class TurretScript : NetworkBehaviour
     public int currentAmmo = 2, maxAmmo = 2;
     public float reloadDelay = 2f;
     public float attackDelay;
-
+    public AudioSource shooting;
     private RaycastHit2D hit;
     private Animator animator;
-
-    public AudioSource turretShot;
 
     // Start is called before the first frame update
     void Awake()
@@ -78,8 +76,8 @@ public class TurretScript : NetworkBehaviour
                 //calculate angle & fire
                 for (currentAmmo = 3; currentAmmo > 0;currentAmmo--)
                 {
-                    turretShot.Play(); // play sound
                     SpawnBulletClientRpc();
+                    shooting.Play();
                     //cooldown before next attack
                     yield return new WaitForSeconds(attackDelay);
                 }

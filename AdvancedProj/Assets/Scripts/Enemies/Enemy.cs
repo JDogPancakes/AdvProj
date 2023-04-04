@@ -10,7 +10,8 @@ public class Enemy : NetworkBehaviour
     public Animator animator;
     private Door door;
     public int hp;
-    public AudioSource robotMoving;
+    public AudioSource moving;
+
 
     private bool trackingPlayer = false;
 
@@ -46,6 +47,7 @@ public class Enemy : NetworkBehaviour
         if (hit.collider != null && hit.collider.CompareTag("Player"))
         {
             StartCoroutine(TrackPlayer(closestTarget.transform));
+
         }
 
         //HandleAnimation();
@@ -110,7 +112,7 @@ public class Enemy : NetworkBehaviour
             for (int i = 0; i < 4; i++)
             {
                 agent.SetDestination(target.position);
-                robotMoving.Play();
+                moving.Play();
                 yield return new WaitForSeconds(0.5f);
             }
             trackingPlayer = false;

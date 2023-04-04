@@ -17,6 +17,7 @@ public class PlayerController : NetworkBehaviour
     public Sprite[] spriteArray;
     public Animator playerAnimator;
     public SpriteRenderer spriteRenderer;
+    public AudioSource walking;
 
     // Start is called before the first frame update
     void Start()
@@ -79,6 +80,7 @@ public class PlayerController : NetworkBehaviour
 
         if (rb.velocity.x == 0 && rb.velocity.y == 0)
         {
+            walking.Play();
             playerAnimator.ResetTrigger("Moving");
         }
         else
@@ -149,6 +151,7 @@ public class PlayerController : NetworkBehaviour
     public void SpawnBulletClientRpc(Quaternion rotation, int dmg, int ricochets)
     {
         Bullet bullet = Instantiate(bulletPrefab, firePoint.position, rotation).GetComponent<Bullet>();
+        GetComponents<AudioSource>()[1].Play();
         bullet.damage = dmg;
         bullet.ricochetsRemaining = ricochets;
         if (IsOwner) inventory.getWeaponSlot().UpdateItem();

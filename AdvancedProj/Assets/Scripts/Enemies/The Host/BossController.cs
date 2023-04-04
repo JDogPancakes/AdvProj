@@ -21,7 +21,7 @@ public class BossController : NetworkBehaviour
 
     public float attackCooldown = 1f;
 
-
+    public AudioSource shooting;
     void Awake()
     {
         players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
@@ -151,6 +151,7 @@ public class BossController : NetworkBehaviour
         Quaternion bulletDirection = new Quaternion();
         bulletDirection.eulerAngles = new Vector3(0, 0, angle);
         Instantiate(bulletPrefab, transform.position, bulletDirection).layer = 10;
+        shooting.Play();
     }
 
     private void SpawnShieldTurrets()

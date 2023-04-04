@@ -15,7 +15,7 @@ public class TurretScript : NetworkBehaviour
     public int currentAmmo = 2, maxAmmo = 2;
     public float reloadDelay = 2f;
     public float attackDelay;
-
+    public AudioSource shooting;
     private RaycastHit2D hit;
     private Animator animator;
 
@@ -77,6 +77,7 @@ public class TurretScript : NetworkBehaviour
                 for (currentAmmo = 3; currentAmmo > 0;currentAmmo--)
                 {
                     SpawnBulletClientRpc();
+                    shooting.Play();
                     //cooldown before next attack
                     yield return new WaitForSeconds(attackDelay);
                 }

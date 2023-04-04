@@ -32,7 +32,7 @@ public class ShotgunObject : WeaponObject
             {
                 //lock out attack
                 canAttack = false;
-
+                
                 //fire bullets
                 ammo--;
                 for (int i = 0; i < bulletCount; i++)
@@ -40,7 +40,7 @@ public class ShotgunObject : WeaponObject
                     //calculate angle & fire
                     Quaternion qt = new Quaternion();
                     qt.eulerAngles = new Vector3(0, 0, angle + Random.Range(-spreadAngle, spreadAngle));
-                    player.SpawnBulletClientRpc(qt, 1, 0);
+                    player.SpawnBulletClientRpc(qt);
                 }
 
                 //cooldown before next attack

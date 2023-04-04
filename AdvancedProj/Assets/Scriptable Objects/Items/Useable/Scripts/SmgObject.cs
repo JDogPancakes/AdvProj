@@ -26,7 +26,7 @@ public class SmgObject : WeaponObject
             //max inaccuracy of 5 degrees each way
             qt.eulerAngles = new Vector3(0, 0, angle + Random.Range(-5f, 5f));
             ammo--;
-            player.SpawnBulletClientRpc(qt, 1, 1);
+            player.SpawnBulletClientRpc(qt, dmg:1, ricochets:1);
             
             //cooldown before next attack
             yield return new WaitForSeconds(attackDelay);

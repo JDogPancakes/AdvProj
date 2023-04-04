@@ -55,6 +55,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                     }
                 }
             }
+
+            if(gameObject.name == "Weapon Slot")
+            {
+                GetComponentInParent<PlayerController>().bulletPrefab = ((WeaponObject)GetComponentInChildren<InventoryItem>().currentItem).bulletPrefab;
+            }
         }
     }
 }

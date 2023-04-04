@@ -94,6 +94,7 @@ public class TurretScript : NetworkBehaviour
     private void SpawnBulletClientRpc()
     {
         GameObject currentBullet = Instantiate(bulletPrefab, firepoint.position, transform.rotation);
+        currentBullet.GetComponent<Bullet>().damage = 1;
         currentBullet.layer = 10;
 
     }
@@ -115,7 +116,7 @@ public class TurretScript : NetworkBehaviour
     [ServerRpc(RequireOwnership =false)]
     public void DamageServerRpc(int dmg)
     {
-        hp--;
+        hp-= dmg;
         if (hp <= 0)
         {
             gameObject.transform.parent.GetComponent<BoxCollider2D>().enabled = false;

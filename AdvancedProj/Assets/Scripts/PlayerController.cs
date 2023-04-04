@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public class PlayerController : NetworkBehaviour
     public Animator playerAnimator;
     public SpriteRenderer spriteRenderer;
     public AudioSource walking;
+    private LineRenderer lr;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,8 @@ public class PlayerController : NetworkBehaviour
         cam.gameObject.SetActive(true);
         cam.GetComponent<AudioListener>().gameObject.SetActive(true);
         UICanvas.gameObject.SetActive(true);
+        lr = GetComponent<LineRenderer>();
+        lr.useWorldSpace = true;
     }
 
 
@@ -148,18 +152,21 @@ public class PlayerController : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void SpawnBulletClientRpc(Quaternion rotation, int dmg, int ricochets)
+    public void SpawnBulletClientRpc(Quaternion rotation, int dmg = 1, int ricochets = 0, int pierce = 0, float speed = 15)
     {
         Bullet bullet = Instantiate(bulletPrefab, firePoint.position, rotation).GetComponent<Bullet>();
         GetComponents<AudioSource>()[1].Play();
         bullet.damage = dmg;
         bullet.ricochetsRemaining = ricochets;
+        bullet.pierce = pierce;
+        bullet.SetSpeed(speed);
         if (IsOwner) inventory.getWeaponSlot().UpdateItem();
     }
 
     [ServerRpc]
     void DamageServerRpc(int damage)
     {
+        Debug.Log("Player Hit ");
         while (damage > 0)
         {
             if (!inventory.hasArmour() || Random.Range(0, 100) > inventory.getArmour().blockChance)

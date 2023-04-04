@@ -26,7 +26,7 @@ public class ToyGunObject : WeaponObject
             //max inaccuracy of 5 degrees each way
             qt.eulerAngles = new Vector3(0, 0, angle + Random.Range(-5f, 5f));
             ammo--;
-            player.SpawnBulletClientRpc(qt, 1, 0);
+            player.SpawnBulletClientRpc(qt);
             
             //cooldown before next attack
             yield return new WaitForSeconds(attackDelay);

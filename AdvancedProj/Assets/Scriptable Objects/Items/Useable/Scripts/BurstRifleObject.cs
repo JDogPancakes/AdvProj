@@ -32,7 +32,7 @@ public class BurstRifleObject : WeaponObject
                 //max inaccuracy of 2 degrees each way
                 qt.eulerAngles = new Vector3(0, 0, angle + Random.Range(-2f, 2f));
                 ammo--;
-                player.SpawnBulletClientRpc(qt, 1, 0);
+                player.SpawnBulletClientRpc(qt);
                 if (ammo == 0) break;
                 yield return new WaitForSeconds(secondsPerBurst / bulletsPerBurst);
             }

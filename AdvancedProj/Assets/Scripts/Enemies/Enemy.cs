@@ -10,7 +10,7 @@ public class Enemy : NetworkBehaviour
     public Animator animator;
     private Door door;
     public int hp;
-
+    public AudioSource robotMoving;
 
     private bool trackingPlayer = false;
 
@@ -110,6 +110,7 @@ public class Enemy : NetworkBehaviour
             for (int i = 0; i < 4; i++)
             {
                 agent.SetDestination(target.position);
+                robotMoving.Play();
                 yield return new WaitForSeconds(0.5f);
             }
             trackingPlayer = false;

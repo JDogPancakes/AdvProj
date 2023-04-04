@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers;
 using UnityEngine;
 
 public class PlayerController : NetworkBehaviour
@@ -38,6 +39,8 @@ public class PlayerController : NetworkBehaviour
         float y = Input.GetAxisRaw("Vertical");
         Vector2 targetVector = new Vector2(x, y);
         Move(targetVector.normalized);
+        
+        
 
         //dash
         if (Input.GetButtonDown("Chip"))
@@ -75,11 +78,13 @@ public class PlayerController : NetworkBehaviour
     }
     void Move(Vector2 targetDirection)
     {
+        
         rb.velocity = targetDirection * movementSpeed;
 
         if (rb.velocity.x == 0 && rb.velocity.y == 0)
         {
             playerAnimator.ResetTrigger("Moving");
+            GetComponents<AudioSource>()[0].Play();
         }
         else
         {
@@ -87,10 +92,12 @@ public class PlayerController : NetworkBehaviour
             if (rb.velocity.y > 0)
             {
                 spriteRenderer.sprite = spriteArray[0];
+               
             }
             else if (rb.velocity.y < 0)
             {
                 spriteRenderer.sprite = spriteArray[1];
+                
             }
             else if (rb.velocity.x > 0)
             {
@@ -100,6 +107,8 @@ public class PlayerController : NetworkBehaviour
             {
                 spriteRenderer.sprite = spriteArray[2];
             }
+
+           
         }
 
         if (inventory.hasArmour())
@@ -148,10 +157,15 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     public void SpawnBulletClientRpc(Quaternion rotation, int dmg, int ricochets)
     {
+<<<<<<< Updated upstream
         Bullet bullet = Instantiate(bulletPrefab, firePoint.position, rotation).GetComponent<Bullet>();
         bullet.damage = dmg;
         bullet.ricochetsRemaining = ricochets;
         if (IsOwner) inventory.getWeaponSlot().UpdateItem();
+=======
+            Instantiate(bulletPrefab, firePoint.position, rotation);
+        GetComponents<AudioSource>()[1].Play();
+>>>>>>> Stashed changes
     }
 
     [ServerRpc]

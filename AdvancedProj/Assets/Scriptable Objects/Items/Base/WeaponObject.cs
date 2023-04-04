@@ -13,7 +13,6 @@ public abstract class WeaponObject : ItemObject
     public float attackDelay;
     public bool canAttack;
     public bool reloading;
-    public AudioClip sound;
 
     public void Awake()
     {

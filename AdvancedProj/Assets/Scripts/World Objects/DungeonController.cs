@@ -22,6 +22,7 @@ public class DungeonController : NetworkBehaviour
     private List<int> usedIndexs;
 
     private int numRooms = 0;
+    private bool bossDone = false;
 
     override public void OnNetworkSpawn()
     {
@@ -33,8 +34,13 @@ public class DungeonController : NetworkBehaviour
     public IEnumerator MoveRoom()
     {
         yield return new WaitForSeconds(1);
+        if (bossDone)
+        {
+            NetworkManager.SceneManager.LoadScene("Hub", UnityEngine.SceneManagement.LoadSceneMode.Single);
+            TeleportClientRpc(0, 0);
 
-        if (numRooms < dungeon.numRooms)
+        }
+        else if (numRooms < dungeon.numRooms && false)
         {
 
             TryNextRoomServerRpc();
@@ -43,6 +49,7 @@ public class DungeonController : NetworkBehaviour
         else
         {
             BossRoomServerRpc();
+            bossDone = true;
         }
 
     }
@@ -50,8 +57,10 @@ public class DungeonController : NetworkBehaviour
     [ServerRpc]
     private void BossRoomServerRpc()
     {
-            Vector3 destination = bossDoor.transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(0.5f, 1.5f));
-            TeleportClientRpc(destination.x, destination.y);
+        Vector3 destination = bossDoor.transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(0.5f, 1.5f));
+        BossTurret boss = FindObjectOfType<BossTurret>();
+        boss.SetCanAttack(true);
+        TeleportClientRpc(destination.x, destination.y);
     }
 
     [ServerRpc]
@@ -60,8 +69,8 @@ public class DungeonController : NetworkBehaviour
         randIndex = Random.Range(0, roomDoors.Count);
         if (!usedIndexs.Contains(randIndex))
         {
-                Vector3 destination = roomDoors[randIndex].transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
-                TeleportClientRpc(destination.x, destination.y);
+            Vector3 destination = roomDoors[randIndex].transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+            TeleportClientRpc(destination.x, destination.y);
 
             usedIndexs.Add(randIndex);
             numRooms++;

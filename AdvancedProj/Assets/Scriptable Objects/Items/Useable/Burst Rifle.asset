@@ -22,5 +22,6 @@ MonoBehaviour:
   attackDelay: 0.5
   canAttack: 1
   reloading: 0
+  sound: {fileID: 8300000, guid: befb6a8465d4c1a45bae0cb2a495354f, type: 3}
   bulletsPerBurst: 3
   secondsPerBurst: 0.5

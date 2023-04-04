@@ -1,6 +1,8 @@
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -14,12 +16,14 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private GameObject[] healthChunks = new GameObject[5];
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject optionsPanel;
     public Camera cam;
     public Sprite[] spriteArray;
     public Animator playerAnimator;
     public SpriteRenderer spriteRenderer;
     public AudioSource walking;
     private LineRenderer lr;
+    bool options = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +32,7 @@ public class PlayerController : NetworkBehaviour
         cam.gameObject.SetActive(true);
         cam.GetComponent<AudioListener>().gameObject.SetActive(true);
         UICanvas.gameObject.SetActive(true);
+        optionsPanel.SetActive(false);
     }
 
 
@@ -41,6 +46,7 @@ public class PlayerController : NetworkBehaviour
         float y = Input.GetAxisRaw("Vertical");
         Vector2 targetVector = new Vector2(x, y);
         Move(targetVector.normalized);
+       
 
         //dash
         if (Input.GetButtonDown("Chip"))
@@ -74,6 +80,10 @@ public class PlayerController : NetworkBehaviour
             inventory.getConsumable().Consume(this);
             if (inventory.getConsumable().quantity <= 0) inventory.RemoveItem(4);
             else inventory.getConsumableSlot().UpdateItem();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            optionsPanel.SetActive(!optionsPanel.activeInHierarchy);
         }
     }
     void Move(Vector2 targetDirection)
@@ -208,4 +218,6 @@ public class PlayerController : NetworkBehaviour
     {
         GetComponent<NetworkObject>().Despawn();
     }
+
+    
 }

@@ -26,6 +26,7 @@ public class InventoryManager : MonoBehaviour
             SpawnItem(newWeapon, inventorySlots[0]);
             inventorySlots[0].GetComponentInChildren<InventoryItem>().currentItem = newWeapon;
             player.bulletPrefab = newWeapon.bulletPrefab;
+            transform.parent.GetComponents<AudioSource>()[1].clip = newWeapon.sound;
             return true;
         }
         else if (itemPrefab is ArmourObject && inventorySlots[1].GetComponentInChildren<InventoryItem>() == null)

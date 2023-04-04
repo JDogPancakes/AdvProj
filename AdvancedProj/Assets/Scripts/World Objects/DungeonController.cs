@@ -26,8 +26,8 @@ public class DungeonController : NetworkBehaviour
     override public void OnNetworkSpawn()
     {
         usedIndexs = new List<int>();
-        GameObject startDoor = GameObject.Find("StartRoom/EntranceDoor");
-        TeleportClientRpc(startDoor.transform.position.x, startDoor.transform.position.y + 1);
+        GameObject startDoor = GameObject.Find("StartRoom/SpawnPoint");
+        TeleportClientRpc(startDoor.transform.position.x, startDoor.transform.position.y);
 
     }
     public IEnumerator MoveRoom()
@@ -57,10 +57,10 @@ public class DungeonController : NetworkBehaviour
     [ServerRpc]
     private void TryNextRoomServerRpc()
     {
-        randIndex = Random.Range(0, dungeon.tiles.Length);
+        randIndex = Random.Range(0, roomDoors.Count);
         if (!usedIndexs.Contains(randIndex))
         {
-                Vector3 destination = roomDoors[randIndex].transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(0.5f, 1.5f));
+                Vector3 destination = roomDoors[randIndex].transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
                 TeleportClientRpc(destination.x, destination.y);
 
             usedIndexs.Add(randIndex);
